@@ -115,6 +115,13 @@ public class Display {
 		this.displayBoard(game, row1, row2, row3);
 	}
 
+	/**
+	 * 
+	 * @param game
+	 *            The current game to get Rooms informations.
+	 *            
+	 * @throws GameOverException
+	 */
 	private void initPos(Game game) throws GameOverException {
 
 		for (int i = 0; i < 25; i++) {
