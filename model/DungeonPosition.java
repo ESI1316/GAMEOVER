@@ -41,8 +41,6 @@ public class DungeonPosition {
 	 * Overriding of constructor to keep it private and useful only
 	 * for P_BARBARIAN Instantiation.
 	 * 
-	 * @throws GameOverException
-	 *             If you are out of the dungeon.
 	 *             
 	 */
 	private DungeonPosition() {

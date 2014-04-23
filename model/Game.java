@@ -67,11 +67,11 @@ public class Game {
 			if ((i != (names.length - 1)) && (names[i + 1].equals("debutant"))) {
 
 				this.players.get(nb).setBeginner(true);
-				i = i + 1;
+				i++;
 			}
 
-			nb = nb + 1;
-			i = i + 1;
+			nb++;
+			i++;
 		}
 	}
 

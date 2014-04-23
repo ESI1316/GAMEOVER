@@ -44,7 +44,7 @@ public class Player {
 		this.beginner = false;
 
 		// Increment Players number for the next player.
-		Player.playersNb = Player.playersNb + 1;
+		Player.playersNb++;
 	}
 
 	/**

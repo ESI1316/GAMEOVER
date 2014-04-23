@@ -167,7 +167,7 @@ public class GameFile {
 					names = names + " " + line;
 				}
 
-				length = length + 1;
+				length++;
 				line = lineRead(line, input);
 			}
 

@@ -117,7 +117,7 @@ public class Dungeon {
 		for (Room room : rooms) {
 
 			this.roomss[(i / size)][(i % size)] = room;
-			i = i + 1;
+			i++;
 		}
 	}
 
@@ -272,7 +272,7 @@ public class Dungeon {
 		while ((surrounded) && (cpt < adj.size())) {
 
 			surrounded = !(this.getRoom(adj.get(cpt)).isHidden());
-			cpt = cpt + 1;
+			cpt++;
 		}
 
 		return surrounded;
