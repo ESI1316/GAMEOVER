@@ -5,7 +5,7 @@ import g39631.gameover.model.*;
 /**
  * Display class
  * 
- * @version 1.00
+ * @version 2.00
  * 
  * @author Placentino Simon
  * @author G39631
@@ -17,21 +17,20 @@ public class Display {
 	private BarbarianColor[] colors;
 	private WeaponType[] weapons;
 	private RoomType[] types;
-	private String row1;
-	private String row2;
-	private String row3;
+	private String row;
+	private boolean hidden;
+	private final String CLEAR = "\033[2J\033[;H";
 
 	/**
 	 * 
 	 */
 	Display() {
 
-		this.colors = new BarbarianColor[25];
-		this.weapons = new WeaponType[25];
-		this.types = new RoomType[25];
-		this.row1 = "| ";
-		this.row2 = "| ";
-		this.row3 = "| ";
+		this.colors = new BarbarianColor[Dungeon.N * Dungeon.N];
+		this.weapons = new WeaponType[Dungeon.N * Dungeon.N];
+		this.types = new RoomType[Dungeon.N * Dungeon.N];
+		this.row = "| ";
+		this.hidden = true;
 	}
 
 	/**
@@ -51,7 +50,7 @@ public class Display {
 	 */
 	void clearBash() {
 
-		System.out.print("\033[2J\033[;H");
+		System.out.print(this.CLEAR);
 	}
 
 	/**
@@ -105,9 +104,9 @@ public class Display {
 	void dungeonBoard(Game game) throws GameOverException {
 
 		this.initPos(game);
-		String row1 = this.row1; // BLORK - GATE - KEY - PRINCESS
-		String row2 = this.row2; // WEAPON - INVINCIBLE - COLOR
-		String row3 = this.row3; // Position.
+		String row1 = this.row; // BLORK - GATE - KEY - PRINCESS
+		String row2 = this.row; // WEAPON - INVINCIBLE - COLOR
+		String row3 = this.row; // Position.
 
 		this.clearBash();
 		this.banner();
@@ -119,19 +118,22 @@ public class Display {
 	 * 
 	 * @param game
 	 *            The current game to get Rooms informations.
-	 *            
+	 * 
 	 * @throws GameOverException
 	 */
 	private void initPos(Game game) throws GameOverException {
 
-		for (int i = 0; i < 25; i++) {
+		for (int i = 0; i < (Dungeon.N * Dungeon.N); i++) {
 
 			this.colors[i] = game.getDungeon()
-					.getRoom(new DungeonPosition(i / 5, i % 5)).getColor();
+					.getRoom(new DungeonPosition(i / Dungeon.N, i % Dungeon.N))
+					.getColor();
 			this.types[i] = game.getDungeon()
-					.getRoom(new DungeonPosition(i / 5, i % 5)).getType();
+					.getRoom(new DungeonPosition(i / Dungeon.N, i % Dungeon.N))
+					.getType();
 			this.weapons[i] = game.getDungeon()
-					.getRoom(new DungeonPosition(i / 5, i % 5)).getWeapon();
+					.getRoom(new DungeonPosition(i / Dungeon.N, i % Dungeon.N))
+					.getWeapon();
 		}
 
 	}
@@ -147,30 +149,31 @@ public class Display {
 	private void displayBoard(Game game, String row1, String row2, String row3)
 			throws GameOverException {
 
-		boolean hidden;
+		for (int i = 0; i < (Dungeon.N * Dungeon.N); i++) {
 
-		for (int i = 0; i < 25; i++) {
+			DungeonPosition position = new DungeonPosition(i / Dungeon.N, i
+					% Dungeon.N);
 
-			hidden = game.getDungeon()
-					.getRoom(new DungeonPosition(i / 5, i % 5)).isHidden();
+			this.hidden = game.getDungeon().getRoom(position).isHidden();
 
-			row3 = positionRow(new DungeonPosition(i / 5, i % 5), row3);
+			row3 = positionRow(position, row3);
 
-			// if (!(hidden)) {
+			if (!(hidden)) {
 
-			row1 = this.typeRow(this.types[i], row1);
-			row2 = this.weaponRow(this.types[i], this.weapons[i], row2); // OR
-			row2 = this.colorRow(this.colors[i], row2); // OR
-			row2 = this.emptyRow(this.types[i], row2);
-			// } else { // Hidden Room.
-			// row1 = row1 + "                 | ";
-			// row2 = row2 + "                 | ";
-			// }
+				row1 = this.typeRow(this.types[i], row1);
+				row2 = this.weaponRow(this.types[i], this.weapons[i], row2);// OR
+				row2 = this.colorRow(this.colors[i], row2);// OR
+				row2 = this.emptyRow(this.types[i], row2);
+			} else {
+
+				row1 = row1 + String.format("%-17s| ", " ");
+				row2 = row2 + String.format("%-17s| ", " ");
+			}
 
 			row1 = this.displayRow(i, row1);
 			row2 = this.displayRow(i, row2);
 			row3 = this.displayRow(i, row3);
-			if ((i % 5) == 4) {
+			if ((i % Dungeon.N) == 4) {
 
 				this.topBoard();
 			}
@@ -244,7 +247,7 @@ public class Display {
 
 		if ((roomType != RoomType.BLORK) && (roomType != RoomType.PRINCESS)) {
 
-			row2 = row2 + "                 | ";
+			row2 = row2 + String.format("%-17s| ", " ");
 		}
 
 		return row2;
@@ -275,10 +278,10 @@ public class Display {
 	 */
 	private String displayRow(int i, String row) {
 
-		if (i % 5 == 4) {
+		if (i % Dungeon.N == 4) {
 
 			System.out.println(" \t \t" + row);
-			row = "| ";
+			row = this.row;
 		}
 
 		return row;

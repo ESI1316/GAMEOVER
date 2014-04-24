@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class Dungeon {
 
-	public static final int DUNGEON_SIDE_SIZE = 5;
+	public static final int N = 5;
 	private static Dungeon instance;
 	private Room[][] roomss;
 
@@ -30,7 +30,7 @@ public class Dungeon {
 	 */
 	private Dungeon() {
 
-		this.roomss = new Room[DUNGEON_SIDE_SIZE][DUNGEON_SIDE_SIZE];
+		this.roomss = new Room[N][N];
 
 		List<Room> rooms = new ArrayList<Room>();
 
@@ -111,7 +111,7 @@ public class Dungeon {
 		int size;
 		int i;
 
-		size 	= Dungeon.DUNGEON_SIDE_SIZE;
+		size 	= Dungeon.N;
 		i 		= 0;
 
 		for (Room room : rooms) {
@@ -152,7 +152,7 @@ public class Dungeon {
 
 		int sideS;
 
-		sideS = Dungeon.DUNGEON_SIDE_SIZE;
+		sideS = Dungeon.N;
 
 		for (int i = 0; i < (sideS * sideS); i++) {
 

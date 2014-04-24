@@ -59,18 +59,17 @@ public class Game {
 	private void playersAdd(String... names) {
 
 		int i = 0;
-		int nb = 0;
 		
 		while (i < names.length) {
 
 			this.players.add(new Player(names[i]));
+			
 			if ((i != (names.length - 1)) && (names[i + 1].equals("debutant"))) {
 
-				this.players.get(nb).setBeginner(true);
+				this.players.get(this.players.size() - 1).setBeginner(true);
 				i++;
 			}
-
-			nb++;
+			
 			i++;
 		}
 	}

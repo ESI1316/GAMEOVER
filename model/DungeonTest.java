@@ -63,8 +63,8 @@ public class DungeonTest {
 
 			Dungeon.getInstance();
 
-			assertEquals(Dungeon.DUNGEON_SIDE_SIZE,
-					Dungeon.DUNGEON_SIDE_SIZE);
+			assertEquals(Dungeon.N,
+					Dungeon.N);
 		}
 
 	// Is the dungeon full of rooms ?

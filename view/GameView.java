@@ -18,7 +18,7 @@ import g39631.gameover.model.*;
 public class GameView {
 
 	private Display display;
-	private Scanner keyboard;
+	private final Scanner keyboard = new Scanner(System.in);
 	private Game newGame;
 	private BarbarianState state;
 	
@@ -31,7 +31,7 @@ public class GameView {
 		try {
 			
 		this.display = new Display();
-		this.keyboard = new Scanner(System.in);	
+//		this.keyboard = new Scanner(System.in);	
 		this.creation(args);
 		this.state = BarbarianState.READY_TO_GO;
 		

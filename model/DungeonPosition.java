@@ -63,8 +63,8 @@ public class DungeonPosition {
 	 */
 	public DungeonPosition(int row, int column) throws GameOverException {
 
-		if ((column < 0) || (column > (Dungeon.DUNGEON_SIDE_SIZE - 1))
-				|| (row < 0) || (row > (Dungeon.DUNGEON_SIDE_SIZE - 1))) {
+		if ((column < 0) || (column > (Dungeon.N - 1))
+				|| (row < 0) || (row > (Dungeon.N - 1))) {
 
 			throw new GameOverException("Wrong position, out of dungeon.");
 		}
