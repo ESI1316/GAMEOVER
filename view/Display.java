@@ -17,6 +17,8 @@ public class Display {
     private BarbarianColor[] colors;
     private WeaponType[] weapons;
     private RoomType[] types;
+    private DungeonPosition[] positions;
+    private Room[] rooms;
     private String row1;
     private String row2;
     private String row3;
@@ -31,9 +33,11 @@ public class Display {
      */
     Display() {
 
-	this.colors = new BarbarianColor[Dungeon.N * Dungeon.N];
-	this.weapons = new WeaponType[Dungeon.N * Dungeon.N];
-	this.types = new RoomType[Dungeon.N * Dungeon.N];
+	this.colors 	= new BarbarianColor[Dungeon.N * Dungeon.N];
+	this.weapons 	= new WeaponType[Dungeon.N * Dungeon.N];
+	this.types 		= new RoomType[Dungeon.N * Dungeon.N];
+	this.positions 	= new DungeonPosition[Dungeon.N * Dungeon.N];
+	this.rooms		= new Room[Dungeon.N * Dungeon.N];
 	this.row1 = ROW_1_INIT;
 	this.row2 = ROW_2_INIT;
 	this.row3 = ROW_3_INIT;
@@ -102,8 +106,8 @@ public class Display {
      * Display all the Dungeon with its hidden and visited parts.
      * 
      * @param game
-     *            The current game to get Rooms informations (Hidden :
-     *            <code>false</code>)
+     *            The current game to get Rooms informations.
+     *            
      * @throws GameOverException
      *             If you create a DungeonPosition outside the Dungeon by a
      *             mismatch.
@@ -115,7 +119,7 @@ public class Display {
 	this.clearBash();
 	this.banner();
 	this.topBoard();
-	this.displayBoard(game, row1, row2, row3);
+	this.displayBoard();
     }
 
     /**
@@ -124,44 +128,32 @@ public class Display {
      *            The current game to get Rooms informations.
      * 
      * @throws GameOverException
+     *             If you create a DungeonPosition outside the Dungeon by a
+     *             mismatch.
      */
     private void initPos(Game game) throws GameOverException {
 
 	for (int i = 0; i < (Dungeon.N * Dungeon.N); i++) {
 
-	    this.colors[i] = game.getDungeon()
-		.getRoom(new DungeonPosition(i / Dungeon.N, i % Dungeon.N))
-		.getColor();
-	    this.types[i] = game.getDungeon()
-		.getRoom(new DungeonPosition(i / Dungeon.N, i % Dungeon.N))
-		.getType();
-	    this.weapons[i] = game.getDungeon()
-		.getRoom(new DungeonPosition(i / Dungeon.N, i % Dungeon.N))
-		.getWeapon();
+		this.positions[i] = new DungeonPosition(i / Dungeon.N, i % Dungeon.N);
+		this.rooms[i] = game.getDungeon().getRoom(this.positions[i]);
+	    this.colors[i] = this.rooms[i].getColor();
+	    this.types[i] = this.rooms[i].getType();
+	    this.weapons[i] = this.rooms[i].getWeapon();
 	}
 
     }
 
     /**
      * 
-     * @param game
-     * @param row1
-     * @param row2
-     * @param row3
-     * @throws GameOverException
      */
-    private void displayBoard(Game game, String row1, String row2, String row3)
-	throws GameOverException {
+    private void displayBoard() {
 
 	    for (int i = 0; i < (Dungeon.N * Dungeon.N); i++) {
 
-		DungeonPosition position = new DungeonPosition(i / Dungeon.N, i
-			% Dungeon.N);
+		this.hidden = this.rooms[i].isHidden();
 
-		this.hidden = game.getDungeon().getRoom(position).isHidden();
-
-		positionRow(position);
-
+		positionRow(this.positions[i]);
 		if (!(hidden)) {
 
 		    this.typeRow(this.types[i]);
@@ -170,8 +162,8 @@ public class Display {
 		    this.emptyRow(this.types[i]);// OR
 		} else {
 
-		    this.row1 = this.row1 + String.format("%-17s| ", " ");
-		    this.row2 = this.row2 + String.format("%-17s| ", " ");
+		    this.row1 += String.format("%-17s| ", " ");
+		    this.row2 += String.format("%-17s| ", " ");
 		}
 
 		this.displayRow(i);
@@ -185,20 +177,16 @@ public class Display {
     /**
      * 
      * @param roomType
-     * @param row1
-     * @return
      */
     private void typeRow(RoomType roomType) {
 
-	this.row1 = this.row1 + String.format("%-17s| ", roomType);
+	this.row1 += String.format("%-17s| ", roomType);
     }
 
     /**
      * 
      * @param roomType
      * @param weaponType
-     * @param row2
-     * @return
      */
     private void weaponRow(RoomType roomType, WeaponType weaponType) {
 
@@ -206,10 +194,10 @@ public class Display {
 
 	    if (weaponType == null) {
 
-		this.row2 = this.row2 + String.format("%-17s| ", "INVINCIBLE");
+		this.row2 += String.format("%-17s| ", "INVINCIBLE");
 	    }else{
 
-		this.row2 = this.row2 + String.format("%-17s| ", weaponType);
+		this.row2 += String.format("%-17s| ", weaponType);
 	    }
 	}
     }
@@ -219,17 +207,12 @@ public class Display {
      * @param color
      *            The BarbarianColor of the Room.
      * 
-     * @param row2
-     *            Its printed representation.
-     * 
-     * @return A printable variable color.
-     * 
      */
     private void colorRow(BarbarianColor color) {
 
 	if (color != null) {
 
-	    this.row2 = this.row2 + colors(color) + String.format("%-17s", color)
+	    this.row2 += colors(color) + String.format("%-17s", color)
 		+ "\033[0m" + "| ";
 	}
     }
@@ -237,26 +220,22 @@ public class Display {
     /**
      * 
      * @param roomType
-     * @param row2
-     * @return
      */
     private void emptyRow(RoomType roomType) {
 
 	if ((roomType != RoomType.BLORK) && (roomType != RoomType.PRINCESS)) {
 
-	    this.row2 = this.row2 + String.format("%-17s| ", " ");
+	    this.row2 += String.format("%-17s| ", " ");
 	}
     }
 
     /**
      * 
      * @param position
-     * @param row3
-     * @return
      */
     private void positionRow(DungeonPosition position) {
 
-	this.row3 = this.row3 + "\033[37m" + String.format("%-15s", position) 
+	this.row3 += "\033[37m" + String.format("%-15s", position) 
 	    + "\033[0m" + " | ";
     }
 
@@ -265,10 +244,6 @@ public class Display {
      * @param i
      *            A Room index.
      * 
-     * @param row
-     *            All RoomType of a row.
-     * 
-     * @return A empty RoomType for next row.
      * 
      */
     private void displayRow(int i) {
