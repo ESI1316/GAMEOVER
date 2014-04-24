@@ -158,17 +158,17 @@ public class Display {
 
 			row3 = positionRow(position, row3);
 
-			if (!(hidden)) {
+//			if (!(hidden)) {
 
 				row1 = this.typeRow(this.types[i], row1);
 				row2 = this.weaponRow(this.types[i], this.weapons[i], row2);// OR
 				row2 = this.colorRow(this.colors[i], row2);// OR
 				row2 = this.emptyRow(this.types[i], row2);
-			} else {
-
-				row1 = row1 + String.format("%-17s| ", " ");
-				row2 = row2 + String.format("%-17s| ", " ");
-			}
+//			} else {
+//
+//				row1 = row1 + String.format("%-17s| ", " ");
+//				row2 = row2 + String.format("%-17s| ", " ");
+//			}
 
 			row1 = this.displayRow(i, row1);
 			row2 = this.displayRow(i, row2);

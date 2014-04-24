@@ -31,7 +31,6 @@ public class GameView {
 		try {
 			
 		this.display = new Display();
-//		this.keyboard = new Scanner(System.in);	
 		this.creation(args);
 		this.state = BarbarianState.READY_TO_GO;
 		
@@ -74,8 +73,10 @@ public class GameView {
 			while (this.state != BarbarianState.WIN) {
 
 				this.state = BarbarianState.READY_TO_GO;
-				this.state = oneTurn(this.newGame, this.state);
-				this.nextPlayerTurn(this.newGame, this.state);
+//				this.state = this.oneTurn(this.state);
+				this.oneTurn();
+//				this.nextPlayerTurn(this.state);
+				this.nextPlayerTurn();
 			}
 
 			this.display.winner(this.newGame);
@@ -99,24 +100,59 @@ public class GameView {
 	 *             Thrown by Display.*() : "Out of Dungeon Exception".
 	 * 
 	 */
-	private BarbarianState oneTurn(Game newGame, BarbarianState state)
-			throws GameOverException {
+	private void oneTurn() throws GameOverException {
 
-		while ((state != BarbarianState.GAMEOVER)
-				&& (state != BarbarianState.WIN)) {
+		while ((this.state != BarbarianState.GAMEOVER)
+				&& (this.state != BarbarianState.WIN)) {
 
-			this.display.dungeonBoard(newGame);
-			this.display.playerPlay(newGame); // Instructions.
+			this.display.dungeonBoard(this.newGame);
+			this.display.playerPlay(this.newGame); // Instructions.
 
-			state = onePlay(newGame, state); // Play one time.
-			state = specialState(newGame, state); // In case of MOVE_BLORK,
+//			this.state = this.onePlay(state); // Play one time.
+			this.onePlay(); // Play one time.
+//			this.state = this.specialState(state); // In case of MOVE_BLORK,
+			this.specialState(); // In case of MOVE_BLORK,
 			// BEAM_ME_UP or JOKER.
 
-			state = newGame.isSurrounded(state);
+			this.state = this.newGame.isSurrounded(state);
 		}
-
-		return state;
 	}
+	
+//	/**
+//	 * 
+//	 * This method plays the player during a round. It can play again if he does
+//	 * not die.
+//	 * 
+//	 * @param newGame
+//	 *            The current Game.
+//	 * 
+//	 * @param state
+//	 *            The current Player's state.
+//	 * 
+//	 * @return The new Player's state after one turn.
+//	 * 
+//	 * @throws GameOverException
+//	 *             Thrown by Display.*() : "Out of Dungeon Exception".
+//	 * 
+//	 */
+//	private BarbarianState oneTurn(BarbarianState state)
+//			throws GameOverException {
+//
+//		while ((state != BarbarianState.GAMEOVER)
+//				&& (state != BarbarianState.WIN)) {
+//
+//			this.display.dungeonBoard(this.newGame);
+//			this.display.playerPlay(this.newGame); // Instructions.
+//
+//			state = this.onePlay(state); // Play one time.
+//			state = this.specialState(state); // In case of MOVE_BLORK,
+//			// BEAM_ME_UP or JOKER.
+//
+//			state = this.newGame.isSurrounded(state);
+//		}
+//
+//		return state;
+//	}
 
 	/**
 	 * The Player plays during a round : he chooses his weapon and the path he
@@ -132,18 +168,18 @@ public class GameView {
 	 * @return If he can play again.
 	 * 
 	 */
-	private BarbarianState onePlay(Game newGame, BarbarianState state) {
+	private void onePlay() {
 
 		int weapon;
 		int direction;
 
-		weapon = weaponChoose(0); // 0 Is a wrong Weapon and Direction.
-		direction = directionChoose(0);
+		weapon = this.weaponChoose(0); // 0 Is a wrong Weapon and Direction.
+		direction = this.directionChoose(0);
 
 		try {
 
 			// Throw "visited Room" & "out of Dungeon" Exceptions.
-			state = newGame.play(Direction.values()[direction - 1],
+			this.state = this.newGame.play(Direction.values()[direction - 1],
 					WeaponType.values()[weapon - 1]);
 
 		} catch (GameOverException e) {
@@ -151,9 +187,44 @@ public class GameView {
 			this.display.errorDisplay(e.getMessage());
 			this.display.errorTimer((long) (2000));
 		}
-
-		return state;
 	}
+	
+//	/**
+//	 * The Player plays during a round : he chooses his weapon and the path he
+//	 * wants to go. Using Thread to temporarily display GameOverException's
+//	 * message.
+//	 * 
+//	 * @param newGame
+//	 *            The current Game to launch a player's movement.
+//	 * 
+//	 * @param state
+//	 *            The current Player's state.
+//	 * 
+//	 * @return If he can play again.
+//	 * 
+//	 */
+//	private BarbarianState onePlay(BarbarianState state) {
+//
+//		int weapon;
+//		int direction;
+//
+//		weapon = this.weaponChoose(0); // 0 Is a wrong Weapon and Direction.
+//		direction = this.directionChoose(0);
+//
+//		try {
+//
+//			// Throw "visited Room" & "out of Dungeon" Exceptions.
+//			state = this.newGame.play(Direction.values()[direction - 1],
+//					WeaponType.values()[weapon - 1]);
+//
+//		} catch (GameOverException e) {
+//
+//			this.display.errorDisplay(e.getMessage());
+//			this.display.errorTimer((long) (2000));
+//		}
+//
+//		return state;
+//	}
 
 	/**
 	 * 
@@ -177,29 +248,75 @@ public class GameView {
 	 *             Throws by onePlayJoker.
 	 * 
 	 */
-	private BarbarianState specialState(Game newGame,
-			BarbarianState state) throws GameOverException {
+	private void specialState() throws GameOverException {
 
-		if (state == BarbarianState.BEAM_ME_UP) {
+		if (this.state == BarbarianState.BEAM_ME_UP) {
 
-			this.display.dungeonBoard(newGame);
-			state = onePlayGate(newGame, state);
+			this.display.dungeonBoard(this.newGame);
+//			this.state = this.onePlayGate(state);
+			this.onePlayGate();
 		}
 
-		if (state == BarbarianState.MOVE_BLORK) {
+		if (this.state == BarbarianState.MOVE_BLORK) {
 
-			this.display.dungeonBoard(newGame);
-			state = onePlayBlorkInvincible(newGame, state);
+			this.display.dungeonBoard(this.newGame);
+//			this.state = this.onePlayBlorkInvincible(state);
+			this.onePlayBlorkInvincible();
 		}
 
-		if (state == BarbarianState.JOKER) {
+		if (this.state == BarbarianState.JOKER) {
 
-			this.display.dungeonBoard(newGame);
-			state = onePlayJoker(newGame, state);
+			this.display.dungeonBoard(this.newGame);
+//			this.state = this.onePlayJoker(state);
+			this.onePlayJoker();
 		}
-
-		return state;
 	}
+	
+//	/**
+//	 * 
+//	 * This method launches a specific treatment for each special case.
+//	 * 
+//	 * @param newGame
+//	 *            The current Game
+//	 * 
+//	 * @param state
+//	 *            The current Player's state.
+//	 * 
+//	 * @return <code>CONTINUE</code> If it is already your current state. If you
+//	 *         use GATE and win. If you use your JOKER and win.
+//	 *         <code>GAMEOVER</code> If it is already your current state. If you
+//	 *         use a GATE and loose. If you use you JOKER and loose. If you
+//	 *         current state is MOVE_BLORK.
+//	 * 
+//	 * 
+//	 * @throws GameOverException
+//	 *             Throws by onePlayGate. Throws by onePlayBlorkInvincible.
+//	 *             Throws by onePlayJoker.
+//	 * 
+//	 */
+//	private BarbarianState specialState(BarbarianState state) 
+//			throws GameOverException {
+//
+//		if (state == BarbarianState.BEAM_ME_UP) {
+//
+//			this.display.dungeonBoard(this.newGame);
+//			state = this.onePlayGate(state);
+//		}
+//
+//		if (state == BarbarianState.MOVE_BLORK) {
+//
+//			this.display.dungeonBoard(this.newGame);
+//			state = this.onePlayBlorkInvincible(state);
+//		}
+//
+//		if (state == BarbarianState.JOKER) {
+//
+//			this.display.dungeonBoard(this.newGame);
+//			state = this.onePlayJoker(state);
+//		}
+//
+//		return state;
+//	}
 
 	/**
 	 * 
@@ -266,17 +383,42 @@ public class GameView {
 	 *             Throws by newGame.nextPlayer().
 	 * 
 	 */
-	private void nextPlayerTurn(Game newGame, BarbarianState state)
-			throws GameOverException {
+	private void nextPlayerTurn() throws GameOverException {
 
-		if ((state != BarbarianState.WIN) && !(newGame.isOver())) {
+		if ((this.state != BarbarianState.WIN) && !(this.newGame.isOver())) {
 
-			this.display.dungeonBoard(newGame);
-			this.display.nextPlayer(); // Print player change.
+			this.display.dungeonBoard(this.newGame);
+			this.display.nextPlayer(); 
 
 			this.newGame.nextPlayer(); // Apply changes for the next player.
 		}
 	}
+	
+//	/**
+//	 * 
+//	 * Call the next player and prepares the Game for him.
+//	 * 
+//	 * @param newGame
+//	 *            The current Game
+//	 * 
+//	 * @param state
+//	 *            The current Player's state.
+//	 * 
+//	 * @throws GameOverException
+//	 *             Throws by newGame.nextPlayer().
+//	 * 
+//	 */
+//	private void nextPlayerTurn(BarbarianState state)
+//			throws GameOverException {
+//
+//		if ((state != BarbarianState.WIN) && !(this.newGame.isOver())) {
+//
+//			this.display.dungeonBoard(this.newGame);
+//			this.display.nextPlayer(); 
+//
+//			this.newGame.nextPlayer(); // Apply changes for the next player.
+//		}
+//	}
 
 	/**
 	 * 
@@ -292,7 +434,7 @@ public class GameView {
 	 *         <code>CONTINUE</code> <code>MOVE_BLORK</code>
 	 * 
 	 */
-	private BarbarianState onePlayGate(Game newGame, BarbarianState state) {
+	private void onePlayGate() {
 
 		DungeonPosition pos = null;
 
@@ -302,9 +444,9 @@ public class GameView {
 
 			try {
 
-				pos = jumpChoose(-1, -1);
+				pos = this.jumpChoose(-1, -1);
 
-				state = newGame.playGate(pos,
+				this.state = this.newGame.playGate(pos,
 						WeaponType.values()[this.weaponChoose(0) - 1]);
 			} catch (GameOverException gateE) {
 
@@ -313,9 +455,46 @@ public class GameView {
 				pos = null;
 			}
 		}
-
-		return state;
 	}
+	
+//	/**
+//	 * 
+//	 * Play a turn when you found a GATE.
+//	 * 
+//	 * @param newGame
+//	 *            The current Game.
+//	 * 
+//	 * @param state
+//	 *            The current Barbarian's state.
+//	 * 
+//	 * @return The new Barbarian's state <code>WIN</code> <code>GAMEOVER</code>
+//	 *         <code>CONTINUE</code> <code>MOVE_BLORK</code>
+//	 * 
+//	 */
+//	private BarbarianState onePlayGate(BarbarianState state) {
+//
+//		DungeonPosition pos = null;
+//
+//		this.display.gate();
+//
+//		while (pos == null) {
+//
+//			try {
+//
+//				pos = this.jumpChoose(-1, -1);
+//
+//				state = this.newGame.playGate(pos,
+//						WeaponType.values()[this.weaponChoose(0) - 1]);
+//			} catch (GameOverException gateE) {
+//
+//				this.display.errorDisplay(gateE.getMessage());
+//				this.display.errorTimer((long) (2000));
+//				pos = null;
+//			}
+//		}
+//
+//		return state;
+//	}
 
 	/**
 	 * 
@@ -330,8 +509,7 @@ public class GameView {
 	 * @return <code>GAMEOVER</code> In every case.
 	 * 
 	 */
-	private BarbarianState onePlayBlorkInvincible(Game newGame,
-			BarbarianState state) {
+	private void onePlayBlorkInvincible() {
 
 		DungeonPosition pos = null;
 
@@ -342,7 +520,7 @@ public class GameView {
 			try {
 
 				pos = this.jumpChoose(-1, -1);
-				state = newGame.playBlorkInvincible(pos);
+				this.state = this.newGame.playBlorkInvincible(pos);
 
 			} catch (GameOverException blorkE) {
 
@@ -351,9 +529,44 @@ public class GameView {
 				pos = null;
 			}
 		}
-
-		return state;
 	}
+	
+//	/**
+//	 * 
+//	 * Play a turn when you found a INVINCIBLE BLORK.
+//	 * 
+//	 * @param newGame
+//	 *            The current Game.
+//	 * 
+//	 * @param state
+//	 *            The current Barbarian's state.
+//	 * 
+//	 * @return <code>GAMEOVER</code> In every case.
+//	 * 
+//	 */
+//	private BarbarianState onePlayBlorkInvincible(BarbarianState state) {
+//
+//		DungeonPosition pos = null;
+//
+//		this.display.invincible();
+//
+//		while (pos == null) {
+//
+//			try {
+//
+//				pos = this.jumpChoose(-1, -1);
+//				state = this.newGame.playBlorkInvincible(pos);
+//
+//			} catch (GameOverException blorkE) {
+//
+//				this.display.errorDisplay(blorkE.getMessage());
+//				this.display.errorTimer((long) (2000));
+//				pos = null;
+//			}
+//		}
+//
+//		return state;
+//	}
 
 	/**
 	 * 
@@ -449,8 +662,7 @@ public class GameView {
 	 * @return <code>GAMEOVER</code> if you chose the wrong one again.
 	 *         <code>CONTINUE</code> if you chose the right one.
 	 */
-	private BarbarianState onePlayJoker(Game newGame,
-			BarbarianState state) {
+	private void onePlayJoker() {
 
 		int weapon;
 
@@ -460,14 +672,46 @@ public class GameView {
 		try {
 
 			// Throw "visited Room" & "out of Dungeon" Exceptions.
-			state = newGame.playJoker(WeaponType.values()[weapon - 1]);
+			this.state = this.newGame.playJoker(WeaponType.values()[weapon - 1]);
 
 		} catch (GameOverException e) {
 
 			this.display.errorDisplay(e.getMessage());
 			this.display.errorTimer((long) (2000));
 		}
-
-		return state;
 	}
+	
+//	/**
+//	 * 
+//	 * Makes you play again if you lose in front of an armed BLORK.
+//	 * 
+//	 * @param newGame
+//	 *            The current Game.
+//	 * 
+//	 * @param state
+//	 *            The current Barbarian's state.
+//	 * 
+//	 * @return <code>GAMEOVER</code> if you chose the wrong one again.
+//	 *         <code>CONTINUE</code> if you chose the right one.
+//	 */
+//	private BarbarianState onePlayJoker(BarbarianState state) {
+//
+//		int weapon;
+//
+//		this.display.joker();
+//		weapon = this.weaponChoose(0); // 0 Is a wrong Weapon and Direction.
+//
+//		try {
+//
+//			// Throw "visited Room" & "out of Dungeon" Exceptions.
+//			state = this.newGame.playJoker(WeaponType.values()[weapon - 1]);
+//
+//		} catch (GameOverException e) {
+//
+//			this.display.errorDisplay(e.getMessage());
+//			this.display.errorTimer((long) (2000));
+//		}
+//
+//		return state;
+//	}
 }
