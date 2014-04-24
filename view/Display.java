@@ -23,9 +23,9 @@ public class Display {
     private String row2;
     private String row3;
     private boolean hidden;
-    private final String ROW_1_INIT =  "| ";
-    private final String ROW_2_INIT =  "| ";
-    private final String ROW_3_INIT =  "| ";
+    private final String ROW_1_INIT =  " \t \t| ";
+    private final String ROW_2_INIT =  " \t \t| ";
+    private final String ROW_3_INIT =  " \t \t| ";
     private final String CLEAR = "\033[2J\033[;H";
 
     /**
@@ -115,7 +115,6 @@ public class Display {
     void dungeonBoard(Game game) throws GameOverException {
 
 	this.initPos(game);
-
 	this.clearBash();
 	this.banner();
 	this.topBoard();
@@ -152,8 +151,7 @@ public class Display {
 	    for (int i = 0; i < (Dungeon.N * Dungeon.N); i++) {
 
 		this.hidden = this.rooms[i].isHidden();
-
-		positionRow(this.positions[i]);
+		this.positionRow(this.positions[i]);
 		if (!(hidden)) {
 
 		    this.typeRow(this.types[i]);
@@ -167,7 +165,7 @@ public class Display {
 		}
 
 		this.displayRow(i);
-		if ((i % Dungeon.N) == 4) {
+		if ((i % Dungeon.N) == (Dungeon.N -1)) {
 
 		    this.topBoard();
 		}
@@ -248,11 +246,11 @@ public class Display {
      */
     private void displayRow(int i) {
 
-	if (i % Dungeon.N == 4) {
+	if ((i % Dungeon.N) == (Dungeon.N -1)) {
 
-	    System.out.println(" \t \t" + this.row1);
-	    System.out.println(" \t \t" + this.row2);
-	    System.out.println(" \t \t" + this.row3);
+	    System.out.println(this.row1);
+	    System.out.println(this.row2);
+	    System.out.println(this.row3);
 	    this.row1 = ROW_1_INIT;
 	    this.row2 = ROW_2_INIT;
 	    this.row3 = ROW_3_INIT;
