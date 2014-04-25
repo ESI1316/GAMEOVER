@@ -17,10 +17,10 @@ import java.util.Objects;
  */
 public class Room {
 
-	private RoomType type;
-	private WeaponType weapon;
-	private BarbarianColor color;
-	private boolean hidden;
+	private RoomType 		type;
+	private WeaponType 		weapon;
+	private BarbarianColor 	color;
+	private boolean 		hidden;
 
 	/**
 	 * Create a new room.
@@ -36,9 +36,9 @@ public class Room {
 	 */
 	Room(RoomType type, WeaponType weapon, BarbarianColor color, boolean hidden) {
 
-		this.type = type;
+		this.type 	= type;
 		this.weapon = weapon;
-		this.color = color;
+		this.color 	= color;
 		this.hidden = hidden;
 	}
 

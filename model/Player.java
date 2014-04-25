@@ -14,17 +14,13 @@ package g39631.gameover.model;
  */
 public class Player {
 
-	static int playersNb = 0;
-	private int number;
-	private String name;
-	private BarbarianColor color;
+	static 	int 			playersNb = 0;
+	private int 			number;
+	private String 			name;
+	private BarbarianColor 	color;
 	private DungeonPosition initPosition;
-	private boolean beginner;
+	private boolean 		beginner;
 
-	/*
-	 * An array of all the start position to set the player's BARBARIAN
-	 * according to its number.
-	 */
 	private final DungeonPosition[] POSITIONS = {
 		DungeonPosition.P_BARBARIAN_1, DungeonPosition.P_BARBARIAN_2,
 		DungeonPosition.P_BARBARIAN_3, DungeonPosition.P_BARBARIAN_4 };
@@ -39,13 +35,12 @@ public class Player {
 	 */
 	public Player(String name) {
 
-		this.number = Player.playersNb;
-		this.name = name;
-		this.color = BarbarianColor.values()[this.number];
-		this.initPosition = POSITIONS[this.number];
-		this.beginner = false;
+		this.number 		= Player.playersNb;
+		this.name 			= name;
+		this.color 			= BarbarianColor.values()[this.number];
+		this.initPosition 	= POSITIONS[this.number];
+		this.beginner 		= false;
 
-		// Increment Players number for the next player.
 		Player.playersNb++;
 	}
 

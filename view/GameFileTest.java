@@ -17,113 +17,113 @@ import org.junit.Test;
  */
 public class GameFileTest {
 
-    @Test
-	public void fileToArray_pathCreation_unreadable_01()
-	throws GameOverException {
+	@Test
+		public void fileToArray_pathCreation_unreadable_01()
+		throws GameOverException {
 
-	    try {
+			try {
 
-		GameFile.fileToArray
-		    ("/home/g39631/Project/V2GameOver/Files/unreadablePlayers.txt");
-	    } catch (GameOverException ex) {
+				GameFile.fileToArray
+					("/home/g39631/Project/V2GameOver/Files/unreadablePlayers.txt");
+			} catch (GameOverException ex) {
 
-		assertTrue(ex.getMessage().equals("Players file unreadable."));
-	    }
-	}
+				assertTrue(ex.getMessage().equals("Players file unreadable."));
+			}
+		}
 
-    @Test
-	public void fileToArray_pathCreation_02() throws GameOverException {
+	@Test
+		public void fileToArray_pathCreation_02() throws GameOverException {
 
-	    try {
+			try {
 
-		GameFile.fileToArray("Je ne suis pas là.");
-	    } catch (GameOverException ex) {
+				GameFile.fileToArray("Je ne suis pas là.");
+			} catch (GameOverException ex) {
 
-		assertTrue(ex.getMessage().equals("Players file not found."));
-	    }
-	}
+				assertTrue(ex.getMessage().equals("Players file not found."));
+			}
+		}
 
-    @Test
-	public void fileToArray_pathCreation_03() throws GameOverException {
+	@Test
+		public void fileToArray_pathCreation_03() throws GameOverException {
 
-	    try {
+			try {
 
-		GameFile.fileToArray
-		    ("/home/g39631/Project/V2GameOver/Files/directoryPlayers.txt/");
-	    } catch (GameOverException ex) {
+				GameFile.fileToArray
+					("/home/g39631/Project/V2GameOver/Files/directoryPlayers.txt/");
+			} catch (GameOverException ex) {
 
-		assertTrue(ex.getMessage().equals("Players file is a directory."));
-	    }
+				assertTrue(ex.getMessage().equals("Players file is a directory."));
+			}
 
-	}
+		}
 
-    @Test
-	public void fileToArray_pathCreation_04() throws GameOverException {
+	@Test
+		public void fileToArray_pathCreation_04() throws GameOverException {
 
-	    try {
+			try {
 
-		GameFile.fileToArray(); // Not any file path.
-	    } catch (GameOverException ex) {
+				GameFile.fileToArray(); // Not any file path.
+			} catch (GameOverException ex) {
 
-		assertTrue(ex.getMessage().equals("There is not any file path."));
-	    }
-	}
+				assertTrue(ex.getMessage().equals("There is not any file path."));
+			}
+		}
 
-    @Test
-	public void fileToArray_players_01() throws GameOverException {
+	@Test
+		public void fileToArray_players_01() throws GameOverException {
 
-	    try {
+			try {
 
-		GameFile.fileToArray("/home/g39631/Project/V2GameOver/Files/0player.txt");
-	    } catch (GameOverException ex) {
+				GameFile.fileToArray("/home/g39631/Project/V2GameOver/Files/0player.txt");
+			} catch (GameOverException ex) {
 
-		assertTrue(ex.getMessage().equals("At least two players required."));
-	    }
-	}
+				assertTrue(ex.getMessage().equals("At least two players required."));
+			}
+		}
 
-    @Test
-	public void fileToArray_players_02() throws GameOverException {
+	@Test
+		public void fileToArray_players_02() throws GameOverException {
 
-	    try {
+			try {
 
-		GameFile.fileToArray("/home/g39631/Project/V2GameOver/Files/1player.txt"); 
-	    } catch (GameOverException ex) {
+				GameFile.fileToArray("/home/g39631/Project/V2GameOver/Files/1player.txt"); 
+			} catch (GameOverException ex) {
 
-		System.out.println(ex.getMessage());
-		assertTrue(ex.getMessage().equals("At least two players required."));
-	    }
-	}
+				System.out.println(ex.getMessage());
+				assertTrue(ex.getMessage().equals("At least two players required."));
+			}
+		}
 
-    @Test
-	public void fileToArray_players_03() throws GameOverException {
+	@Test
+		public void fileToArray_players_03() throws GameOverException {
 
-	    assertTrue(GameFile.fileToArray
-		    ("/home/g39631/Project/V2GameOver/Files/2players.txt").length != 0);
-	}
+			assertTrue(GameFile.fileToArray
+					("/home/g39631/Project/V2GameOver/Files/2players.txt").length != 0);
+		}
 
-    @Test
-	public void fileToArray_players_04() throws GameOverException {
+	@Test
+		public void fileToArray_players_04() throws GameOverException {
 
-	    assertTrue(GameFile.
-		    fileToArray("/home/g39631/Project/V2GameOver/Files/3players.txt").length != 0); 
-	}
+			assertTrue(GameFile.
+					fileToArray("/home/g39631/Project/V2GameOver/Files/3players.txt").length != 0); 
+		}
 
-    @Test
-	public void fileToArray_players_05() throws GameOverException {
+	@Test
+		public void fileToArray_players_05() throws GameOverException {
 
-	    assertTrue(GameFile.
-		    fileToArray("/home/g39631/Project/V2GameOver/Files/4players.txt").length != 0);
-	}
+			assertTrue(GameFile.
+					fileToArray("/home/g39631/Project/V2GameOver/Files/4players.txt").length != 0);
+		}
 
-    @Test
-	public void fileToArray_players_06() throws GameOverException {
+	@Test
+		public void fileToArray_players_06() throws GameOverException {
 
-	    try {
+			try {
 
-		GameFile.fileToArray("/home/g39631/Project/V2GameOver/Files/5players.txt"); 
-	    } catch (GameOverException ex) {
+				GameFile.fileToArray("/home/g39631/Project/V2GameOver/Files/5players.txt"); 
+			} catch (GameOverException ex) {
 
-		assertTrue(ex.getMessage().equals("Up to 4 players."));
-	    }
-	} 
+				assertTrue(ex.getMessage().equals("Up to 4 players."));
+			}
+		} 
 }

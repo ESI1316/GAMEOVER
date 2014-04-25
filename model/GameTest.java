@@ -128,7 +128,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Salvina", "Deborou", "Antonou");
 			newGame.setDungeon(dungeon);
-			
+
 			assertTrue(newGame.play(Direction.DOWN, WeaponType.ARROWS) 
 					== BarbarianState.CONTINUE);
 
@@ -170,7 +170,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Salvina", "Deborou", "Antonou");
 			newGame.setDungeon(dungeon);
-			
+
 			assertTrue(newGame.play(Direction.DOWN, WeaponType.ARROWS) 
 					== BarbarianState.CONTINUE);
 
@@ -191,7 +191,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Salvina", "Deborou", "Antonou");
 			newGame.setDungeon(dungeon);
-			
+
 			assertTrue(newGame.play(Direction.DOWN, WeaponType.ARROWS) 
 					== BarbarianState.BEAM_ME_UP);
 
@@ -212,7 +212,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Salvina", "Deborou", "Antonou");
 			newGame.setDungeon(dungeon);
-			
+
 			assertTrue(newGame.play(Direction.DOWN, WeaponType.ARROWS) 
 					== BarbarianState.MOVE_BLORK);
 
@@ -236,7 +236,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Salvina", "Deborou", "Antonou");
 			newGame.setDungeon(dungeon);
-			
+
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 
 			dungeon.setInstance();
@@ -260,7 +260,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Salvina", "Deborou", "Antonou");
 			newGame.setDungeon(dungeon);
-			
+
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 
@@ -289,7 +289,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Salvina", "Deborou", "Antonou");
 			newGame.setDungeon(dungeon);
-			
+
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 
@@ -317,7 +317,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Salvina", "Deborou", "Antonou");
 			newGame.setDungeon(dungeon);
-			
+
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 
@@ -345,7 +345,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Salvina", "Deborou", "Antonou");
 			newGame.setDungeon(dungeon);
-			
+
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 
@@ -372,7 +372,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Salvina", "Deborou", "Antonou");
 			newGame.setDungeon(dungeon);
-			
+
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 
 			assertTrue(newGame.getWinner() == null);
@@ -430,7 +430,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Salvina", "Deborou", "Antonou");
 			newGame.setDungeon(dungeon);
-			
+
 			newGame.nextPlayer();
 
 			assertTrue(newGame.play(Direction.UP, WeaponType.ARROWS) 
@@ -456,7 +456,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Salvina", "Deborou", "Antonou");
 			newGame.setDungeon(dungeon);
-			
+
 			newGame.nextPlayer();
 			newGame.nextPlayer();
 
@@ -484,7 +484,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Salvina", "Deborou", "Antonou", "Simon");
 			newGame.setDungeon(dungeon);
-			
+
 			newGame.nextPlayer();
 			newGame.nextPlayer();
 			newGame.nextPlayer();
@@ -514,7 +514,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Salvina", "Deborou", "Antonou");
 			newGame.setDungeon(dungeon);
-			
+
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 			newGame.play(Direction.UP, WeaponType.ARROWS);
@@ -536,7 +536,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Salvina", "Deborou", "Antonou");
 			newGame.setDungeon(dungeon);
-			
+
 			newGame.nextPlayer();
 
 			newGame.play(Direction.UP, WeaponType.ARROWS);
@@ -572,7 +572,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Salvina", "Deborou", "Antonou");
 			newGame.setDungeon(dungeon);
-			
+
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
@@ -603,7 +603,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Pierre", "Paul", "Jacques");
 			newGame.setDungeon(dungeon);
-			
+
 			newGame.play(Direction.DOWN, WeaponType.POTION);
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 			newGame.playBlorkInvincible(new DungeonPosition(4, 4));
@@ -627,7 +627,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Pierre", "Paul", "Jacques");
 			newGame.setDungeon(dungeon);
-			
+
 			newGame.play(Direction.DOWN, WeaponType.POTION);
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 			newGame.playBlorkInvincible(new DungeonPosition(3, 3));
@@ -653,7 +653,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Pierre", "Paul", "Jacques");
 			newGame.setDungeon(dungeon);
-			
+
 			newGame.play(Direction.DOWN, WeaponType.POTION);
 			newGame.playBlorkInvincible(new DungeonPosition(3, 3));
 			dungeon.setInstance();
@@ -676,7 +676,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Pierre", "Paul", "Jacques");
 			newGame.setDungeon(dungeon);
-			
+
 			newGame.play(Direction.DOWN, WeaponType.POTION);
 			newGame.playBlorkInvincible(new DungeonPosition(1, 0));
 			dungeon.setInstance();
@@ -699,7 +699,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Pierre", "Paul", "Jacques");
 			newGame.setDungeon(dungeon);
-			
+
 			newGame.play(Direction.DOWN, WeaponType.POTION);
 			newGame.playBlorkInvincible(new DungeonPosition(4, 2));
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
@@ -723,12 +723,12 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Pierre", "Paul", "Jacques");
 			newGame.setDungeon(dungeon);
-			
+
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 			newGame.playGate(new DungeonPosition(3, 4), WeaponType.ARROWS);
 
 			assertTrue((newGame.play(Direction.DOWN, WeaponType.POTION) 
-													== BarbarianState.CONTINUE)
+						== BarbarianState.CONTINUE)
 					&& (newGame.getCurrentPlayer().getName() == "Pierre"));
 
 			dungeon.setInstance();
@@ -748,7 +748,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Jean", "Jacques", "Goldman", "Afou");
 			newGame.setDungeon(dungeon);
-			
+
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 			assertTrue(newGame.playGate(new DungeonPosition(3, 4),
 						WeaponType.ARROWS) == BarbarianState.CONTINUE);
@@ -773,7 +773,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Jean", "Jacques", "Goldman", "Afou");
 			newGame.setDungeon(dungeon);
-			
+
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 			assertTrue(newGame.playGate(new DungeonPosition(3, 2),
@@ -796,7 +796,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Jean", "Jacques", "Goldman", "Afou");
 			newGame.setDungeon(dungeon);
-			
+
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 			newGame.playGate(new DungeonPosition(0, 0), WeaponType.ARROWS);
 
@@ -818,7 +818,7 @@ public class GameTest {
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("David", "Roger", "Nick", "Richard");
 			newGame.setDungeon(dungeon);
-			
+
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 			newGame.playGate(new DungeonPosition(3, 0), WeaponType.ARROWS);
 

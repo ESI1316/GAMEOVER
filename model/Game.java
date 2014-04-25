@@ -36,22 +36,23 @@ public class Game {
 	public Game(String... names) {
 
 		/*
-		 * Wrong number of players are tests by g39631.gameover.view.GameFile 
-		 * because of number of file's lines read. If it did not do, 
-		 * an exception would be launched in g39631.gameover.model.Game 
-		 * after an unknown number of row read (for example 300).
+		 * "Wrong number of players" test are made by 
+		 * g39631.gameover.view.GameFile because of number of file's lines read. 
+		 * If it did not do it, an exception would be launched in 
+		 * g39631.gameover.model.Game after an unknown number 
+		 * of row read (for example 300).
 		 */
 		Player.playersNb = 0;
 
-		this.dungeon = Dungeon.getInstance();
+		this.dungeon 		= Dungeon.getInstance();
 		this.playersAdd(names);
-		this.idCurrent = 0;
-		this.stateCurrent = BarbarianState.READY_TO_GO;
-		this.lastPosition = players.get(idCurrent).getInitPosition();
-		this.keyFound = false;
-		this.princessFound = false;
-		this.idWinner = -1;
-		this.jokerUsed = false;
+		this.idCurrent 		= 0;
+		this.stateCurrent 	= BarbarianState.READY_TO_GO;
+		this.lastPosition 	= players.get(idCurrent).getInitPosition();
+		this.keyFound 		= false;
+		this.princessFound 	= false;
+		this.idWinner 		= -1;
+		this.jokerUsed 		= false;
 	}
 
 	/**
@@ -66,17 +67,17 @@ public class Game {
 	private void playersAdd(String... names) {
 
 		int i = 0;
-		
+
 		while (i < names.length) {
 
 			this.players.add(new Player(names[i]));
-			
+
 			if ((i != (names.length - 1)) && (names[i + 1].equals("debutant"))) {
 
 				this.players.get(this.players.size() - 1).setBeginner(true);
 				i++;
 			}
-			
+
 			i++;
 		}
 	}
@@ -91,24 +92,24 @@ public class Game {
 	 * @param weapon
 	 *            The Weapon he will use to face enemies.
 	 * 
-	 * @return BarbarianState : <code>CONTINUE</code> if he can play once again.
-	 *         <code>GAMEOVER</code> if you loose. <code>BEAM_ME_UP</code> if
-	 *         you find a GATE. <code>WIN</code> if you find a KEY and your
-	 *         PRINCESS. <code>MOVE_BLORK</code> if you find a INVICIBLE BLORK.
+	 * @return <code>CONTINUE</code> if he can play once again.
+	 *         <code>GAMEOVER</code> if you loose. 
+	 *         <code>BEAM_ME_UP</code> if you find a GATE. 
+	 *         <code>WIN</code> if you find a KEY and your PRINCESS. 
+	 *         <code>MOVE_BLORK</code> if you find a INVICIBLE BLORK.
 	 * 
 	 * @throws GameOverException
-	 *             If there is a winner. If you can not move anymore. If he goes
-	 *             in a visited Room. (Throw by DungeonPosition : If you are out
-	 *             of the Dungeon).
+	 *             If there is a winner. 
+	 *             If you can not move anymore. 
+	 *             If he goes in a visited Room. 
+	 *             (Thrown by DungeonPosition : If you are out of the Dungeon).
 	 */
 	public BarbarianState play(Direction direction, WeaponType weapon)
 		throws GameOverException {
 
 			this.playExceptions(direction);
-
 			this.lastPosition = this.lastPosition.move(direction);
 			this.stateCurrent = BarbarianState.CONTINUE;
-
 			this.playTreatmentInit(weapon);
 			this.hideRoom();
 
@@ -123,9 +124,9 @@ public class Game {
 	 *            The Direction you go.
 	 * 
 	 * @throws GameOverException
-	 *             If game is over. If you are not READY_TO_GO or you can not
-	 *             CONTINUE. If the Room you want to go in has been already
-	 *             visited.
+	 *             If game is over. 
+	 *             If you are not READY_TO_GO or you can not CONTINUE. 
+	 *             If the Room you want to go in has been already visited.
 	 */
 	private void playExceptions(Direction direction) throws GameOverException {
 
@@ -160,9 +161,9 @@ public class Game {
 	 */
 	private void playTreatmentInit(WeaponType weapon) {
 
-		RoomType roomType;
-		WeaponType weaponType;
-		BarbarianColor barbarianColor;
+		RoomType 		roomType;
+		WeaponType 		weaponType;
+		BarbarianColor 	barbarianColor;
 
 		roomType = this.getDungeon().getRoom(this.lastPosition).getType();
 		weaponType = this.getDungeon().getRoom(this.lastPosition).getWeapon();
@@ -332,22 +333,22 @@ public class Game {
 	 * @param weapon
 	 *            The Barbarian's weapon.
 	 * 
-	 * @return BarbarianState : <code>CONTINUE</code> if he can play once again.
-	 *         <code>GAMEOVER</code> if you loose. <code>BEAM_ME_UP</code> if
-	 *         you find a GATE. <code>WIN</code> if you find a KEY and your
-	 *         PRINCESS. <code>MOVE_BLORK</code> if you find a INVICIBLE BLORK.
+	 * @return <code>CONTINUE</code> if he can play once again.
+	 *         <code>GAMEOVER</code> if you loose. 
+	 *         <code>BEAM_ME_UP</code> if you find a GATE. 
+	 *         <code>WIN</code> if you find a KEY and your PRINCESS. 
+	 *         <code>MOVE_BLORK</code> if you find a INVICIBLE BLORK.
 	 * 
 	 * @throws GameOverException
-	 *             If the game is over. If player's state is not BEAM_ME_UP.
+	 *             If the game is over. 
+	 *             If player's state is not BEAM_ME_UP.
 	 */
 	public BarbarianState playGate(DungeonPosition position, WeaponType weapon)
 		throws GameOverException {
 
 			this.playGateExceptions(position);
-
 			this.lastPosition = position;
 			this.stateCurrent = BarbarianState.CONTINUE;
-
 			this.playTreatmentInit(weapon);
 			this.hideRoom();
 
@@ -386,7 +387,7 @@ public class Game {
 
 			if (!(this.getDungeon().getRoom(position).isHidden())) {
 
-				throw new GameOverException("You can not go in a visited Room.");
+				throw new GameOverException("You already visited this room.");
 			}
 		}
 
@@ -407,12 +408,9 @@ public class Game {
 	public BarbarianState playJoker(WeaponType weapon) throws GameOverException {
 
 		this.playJokerExceptions();
-
-		this.jokerUsed = true;
-		this.stateCurrent = BarbarianState.CONTINUE;
-
+		this.jokerUsed 		= true;
+		this.stateCurrent 	= BarbarianState.CONTINUE;
 		this.getDungeon().getRoom(this.lastPosition).setHidden(false);
-
 		this.playTreatmentInit(weapon);
 
 		return this.stateCurrent;
@@ -423,8 +421,9 @@ public class Game {
 	 * This method throws playJoker Exceptions.
 	 * 
 	 * @throws GameOverException
-	 *             If the Game is over. If you can not use your JOKER. If you
-	 *             already have you JOKER used.
+	 *             If the Game is over. 
+	 *             If you can not use your JOKER. 
+	 *             If you already have you JOKER used.
 	 * 
 	 */
 	private void playJokerExceptions() throws GameOverException {
@@ -457,7 +456,8 @@ public class Game {
 	 * @return <code>GAMEOVER</code> in every case.
 	 * 
 	 * @throws GameOverException
-	 *             If the game is over. If you do not have right to move BLORK.
+	 *             If the game is over. 
+	 *             If you do not have right to move BLORK.
 	 *             If you want to move INVICIBLE BLORK to a corner.
 	 * 
 	 */
@@ -471,12 +471,12 @@ public class Game {
 			if (!(this.jokerUsed) && (this.getCurrentPlayer().isBeginner())) {
 
 				this.getDungeon().show(this.lastPosition); // Show swapped card.
-				this.stateCurrent = BarbarianState.CONTINUE;
-				this.jokerUsed = true;
+				this.stateCurrent 	= BarbarianState.CONTINUE;
+				this.jokerUsed 		= true;
 
 			} else {
 
-				this.stateCurrent = BarbarianState.GAMEOVER;
+				this.stateCurrent 	= BarbarianState.GAMEOVER;
 			}
 
 			return this.stateCurrent;
@@ -490,7 +490,8 @@ public class Game {
 	 *            The new INVICIBLE BLORK's position.
 	 * 
 	 * @throws GameOverException
-	 *             If the game is over. If you do not have right to move BLORK.
+	 *             If the game is over. 
+	 *             If you do not have right to move BLORK.
 	 *             If you want to move INVICIBLE BLORK to a corner.
 	 * 
 	 */
@@ -552,12 +553,12 @@ public class Game {
 
 		this.getDungeon().hideAll();
 
-		this.idCurrent = (this.idCurrent + 1) % (this.players.size());
-		this.stateCurrent = BarbarianState.READY_TO_GO;
-		this.keyFound = false;
-		this.princessFound = false;
-		this.lastPosition = this.players.get(idCurrent).getInitPosition();
-		this.jokerUsed = false;
+		this.idCurrent 		= (this.idCurrent + 1) % (this.players.size());
+		this.stateCurrent 	= BarbarianState.READY_TO_GO;
+		this.keyFound 		= false;
+		this.princessFound 	= false;
+		this.lastPosition 	= this.players.get(idCurrent).getInitPosition();
+		this.jokerUsed 		= false;
 	}
 
 	/**

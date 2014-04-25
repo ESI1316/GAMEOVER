@@ -19,11 +19,11 @@ import g39631.gameover.model.*;
  */
 public class GameView {
 
-	private Display display;
-	private final Scanner keyboard = new Scanner(System.in);
-	private Game newGame;
-	private BarbarianState state;
-	
+	private Display 		display;
+	private final Scanner 	keyboard = new Scanner(System.in);
+	private Game 			newGame;
+	private BarbarianState 	state;
+
 	/**
 	 * 
 	 * This try to launch "GAMEOVER".
@@ -35,21 +35,20 @@ public class GameView {
 	 *            Player's file path (first position of the table).
 	 */
 	private GameView(String[] args) {
-		
+
 		try {
-			
-		this.display = new Display();
-		this.creation(args);
-		
-		this.state = BarbarianState.READY_TO_GO;	
-		this.gameOverTheGame(args);
+
+			this.display = new Display();
+			this.creation(args);
+			this.state = BarbarianState.READY_TO_GO;	
+			this.gameOverTheGame(args);
 		} catch (GameOverException ex) {
 
 			this.display.shutDown(ex.getMessage());
 			System.exit(1);
 		}
 	}
-	
+
 	/**
 	 * 
 	 * This launches a new Game with player's file. He calls GameView constructor
@@ -64,7 +63,7 @@ public class GameView {
 
 		new GameView(args);
 	}
-	
+
 	/**
 	 * 
 	 * This reads Player's file fills an array of names &amp; novices status.
@@ -79,10 +78,10 @@ public class GameView {
 	 */
 	private void creation(String[] args) throws GameOverException {
 
-			args = GameFile.fileToArray(args);
-			this.newGame = new Game(args);
+		args 			= GameFile.fileToArray(args);
+		this.newGame 	= new Game(args);
 	}
-	
+
 	/**
 	 * 
 	 * @param args
@@ -94,18 +93,18 @@ public class GameView {
 	 * 
 	 */
 	private void gameOverTheGame(String[] args) throws GameOverException {
-		
-			while (this.state != BarbarianState.WIN) {
 
-				this.state = BarbarianState.READY_TO_GO;
-				this.oneTurn();
-				this.nextPlayerTurn();
-			}
+		while (this.state != BarbarianState.WIN) {
 
-			this.display.winner(this.newGame.getWinner());
-			System.exit(0);
+			this.state = BarbarianState.READY_TO_GO;
+			this.oneTurn();
+			this.nextPlayerTurn();
+		}
+
+		this.display.winner(this.newGame.getWinner());
+		System.exit(0);
 	}
-	
+
 	/**
 	 * 
 	 * This method plays the player during a round. It can play again if he does
@@ -141,8 +140,8 @@ public class GameView {
 		int weapon;
 		int direction;
 
-		weapon = this.weaponChoose(0); // 0 Is a wrong Weapon and Direction.
-		direction = this.directionChoose(0);
+		weapon 		= this.weaponChoose(0);// 0 Is a wrong Weapon and Direction.
+		direction 	= this.directionChoose(0);
 
 		try {
 
@@ -160,7 +159,8 @@ public class GameView {
 	 * This method launches a specific treatment for each special case.
 	 * 
 	 * @throws GameOverException
-	 *             Throws by onePlayGate. Throws by onePlayBlorkInvincible.
+	 *             Throws by onePlayGate. 
+	 *             Throws by onePlayBlorkInvincible.
 	 *             Throws by onePlayJoker.
 	 * 
 	 */
@@ -250,7 +250,6 @@ public class GameView {
 
 			this.display.dungeonBoard(this.newGame);
 			this.display.nextPlayer(); 
-
 			this.newGame.nextPlayer();
 		}
 	}
@@ -297,8 +296,8 @@ public class GameView {
 
 			try {
 
-				pos = this.jumpChoose(-1, -1);
-				this.state = this.newGame.playBlorkInvincible(pos);
+				pos 		= this.jumpChoose(-1, -1);
+				this.state 	= this.newGame.playBlorkInvincible(pos);
 
 			} catch (GameOverException blorkE) {
 
@@ -381,13 +380,13 @@ public class GameView {
 	 * 
 	 */
 	private DungeonPosition jumpChoose(int row, int column)
-			throws GameOverException {
+		throws GameOverException {
 
-		row = this.rowChoose(row);
-		column = this.columnChoose(column);
+			row 	= this.rowChoose(row);
+			column 	= this.columnChoose(column);
 
-		return new DungeonPosition(row, column);
-	}
+			return new DungeonPosition(row, column);
+		}
 
 	/**
 	 * 
@@ -395,14 +394,11 @@ public class GameView {
 	 */
 	private void onePlayJoker() {
 
-		int weapon;
-
 		this.display.joker();
-		weapon = this.weaponChoose(0); // 0 Is a wrong Weapon and Direction.
-
 		try {
 
-			this.state = this.newGame.playJoker(WeaponType.values()[weapon - 1]);
+			this.state = this.newGame
+					.playJoker(WeaponType.values()[this.weaponChoose(0) - 1]);
 
 		} catch (GameOverException e) {
 

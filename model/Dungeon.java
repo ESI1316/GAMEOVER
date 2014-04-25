@@ -110,15 +110,11 @@ public class Dungeon {
 	 */
 	private void roomsInGameBoard(List<Room> rooms) {
 
-		int size;
-		int i;
-
-		size 	= Dungeon.N;
-		i 		= 0;
+		int i = 0;
 
 		for (Room room : rooms) {
 
-			this.roomss[(i / size)][(i % size)] = room;
+			this.roomss[(i / Dungeon.N)][(i % Dungeon.N)] = room;
 			i++;
 		}
 	}
@@ -152,13 +148,9 @@ public class Dungeon {
 	 */
 	public void hideAll() {
 
-		int sideS;
+		for (int i = 0; i < (Dungeon.N * Dungeon.N); i++) {
 
-		sideS = Dungeon.N;
-
-		for (int i = 0; i < (sideS * sideS); i++) {
-
-			instance.roomss[(i / sideS)][(i % sideS)].setHidden(true);
+			instance.roomss[(i / Dungeon.N)][(i % Dungeon.N)].setHidden(true);
 		}
 	}
 
@@ -181,10 +173,11 @@ public class Dungeon {
 
 			Room swapRoom = this.getRoom(posBlork);
 
-			instance.roomss[posBlork.getRow()][posBlork.getColumn()] = this
-				.getRoom(positionTwo);
+			instance.roomss[posBlork.getRow()][posBlork.getColumn()] 
+				= this.getRoom(positionTwo);
 
-			instance.roomss[positionTwo.getRow()][positionTwo.getColumn()] = swapRoom;
+			instance.roomss[positionTwo.getRow()][positionTwo.getColumn()] 
+				= swapRoom;
 		}
 
 	/**
@@ -238,15 +231,15 @@ public class Dungeon {
 	 */
 	public boolean isSurrounded(DungeonPosition pos) throws GameOverException {
 
-		boolean surrounded;
-		List<DungeonPosition> adj;
+		boolean 				surrounded;
+		List<DungeonPosition> 	adj;
 
-		surrounded = true;
-		adj = new ArrayList<DungeonPosition>();
+		surrounded 	= true;
+		adj 		= new ArrayList<DungeonPosition>();
 
-		adj = this.isSurroundedLR(adj, pos);
-		adj = this.isSurroundedUD(adj, pos);
-		surrounded = this.isSurroundedTest(adj, surrounded);
+		adj 		= this.isSurroundedLR(adj, pos);
+		adj 		= this.isSurroundedUD(adj, pos);
+		surrounded 	= this.isSurroundedTest(adj, surrounded);
 
 		return surrounded;
 	}
@@ -267,9 +260,7 @@ public class Dungeon {
 	private boolean isSurroundedTest(List<DungeonPosition> adj,
 			boolean surrounded) {
 
-		int cpt;
-
-		cpt = 0;
+		int cpt = 0;
 
 		while ((surrounded) && (cpt < adj.size())) {
 
@@ -337,18 +328,18 @@ public class Dungeon {
 
 			case 0: // Rooms of the top.
 
-				adj.add(new DungeonPosition(pos.getRow() + 1, pos.getColumn()));// Down.
+				adj.add(new DungeonPosition(pos.getRow() + 1, pos.getColumn()));
 				break;
 
 			case 4: // Rooms of the bottom.
 
-				adj.add(new DungeonPosition(pos.getRow() - 1, pos.getColumn()));// Up
+				adj.add(new DungeonPosition(pos.getRow() - 1, pos.getColumn()));
 				break;
 
 			default: // Between top and bottom.
 
-				adj.add(new DungeonPosition(pos.getRow() - 1, pos.getColumn()));// Up
-				adj.add(new DungeonPosition(pos.getRow() + 1, pos.getColumn()));// Down
+				adj.add(new DungeonPosition(pos.getRow() - 1, pos.getColumn()));
+				adj.add(new DungeonPosition(pos.getRow() + 1, pos.getColumn()));
 				break;
 		}
 

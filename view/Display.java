@@ -17,11 +17,11 @@ import g39631.gameover.model.*;
  */
 public class Display {
 
-	private BarbarianColor[] colors;
-	private WeaponType[] weapons;
-	private RoomType[] types;
-	private DungeonPosition[] positions;
-	private Room[] rooms;
+	private BarbarianColor[] 	colors;
+	private WeaponType[] 		weapons;
+	private RoomType[] 			types;
+	private DungeonPosition[] 	positions;
+	private Room[] 				rooms;
 
 	private String row1;
 	private String row2;
@@ -30,12 +30,12 @@ public class Display {
 	private final String ROW_1_INIT = " \t \t| ";
 	private final String ROW_2_INIT = " \t \t| ";
 	private final String ROW_3_INIT = " \t \t| ";
-	private final String TOP = "  ________________ ";
+	private final String TOP 		= "  ________________ ";
 
-	private final String CLEAR = "\033[2J\033[;H";
+	private final String CLEAR 		= "\033[2J\033[;H";
 
-	private final String[] CODE_COLOR = { "\033[31m", "\033[32m", "\033[33m",
-			"\033[34m" };
+	private final String[] CODE_COLOR = {"\033[31m","\033[32m","\033[33m",
+		"\033[34m"};
 	private final String INIT_COLOR = "\033[0m";
 
 	private final String WEAPONS = "POTION(1) - ARROWS(2) - BLUDGEON(3) - GUN(4)";
@@ -54,14 +54,14 @@ public class Display {
 	 */
 	Display() {
 
-		this.colors = new BarbarianColor[Dungeon.N * Dungeon.N];
-		this.weapons = new WeaponType[Dungeon.N * Dungeon.N];
-		this.types = new RoomType[Dungeon.N * Dungeon.N];
-		this.positions = new DungeonPosition[Dungeon.N * Dungeon.N];
-		this.rooms = new Room[Dungeon.N * Dungeon.N];
-		this.row1 = ROW_1_INIT;
-		this.row2 = ROW_2_INIT;
-		this.row3 = ROW_3_INIT;
+		this.colors 	= new BarbarianColor[Dungeon.N * Dungeon.N];
+		this.weapons 	= new WeaponType[Dungeon.N * Dungeon.N];
+		this.types 		= new RoomType[Dungeon.N * Dungeon.N];
+		this.positions 	= new DungeonPosition[Dungeon.N * Dungeon.N];
+		this.rooms 		= new Room[Dungeon.N * Dungeon.N];
+		this.row1 		= ROW_1_INIT;
+		this.row2 		= ROW_2_INIT;
+		this.row3 		= ROW_3_INIT;
 		// this.hidden = true;
 	}
 
@@ -72,7 +72,11 @@ public class Display {
 	 */
 	private void topBoard() {
 
-		System.out.println("\t \t" + this.TOP + this.TOP + this.TOP + this.TOP
+		System.out.println("\t \t" 
+				+ this.TOP 
+				+ this.TOP 
+				+ this.TOP 
+				+ this.TOP
 				+ this.TOP);
 	}
 
@@ -94,27 +98,27 @@ public class Display {
 		// System.out.println(this.BANNER);
 
 		System.out
-				.println("\t \t \t"
-						+ " \033[41m######      ###    ##     ## ########     #######  ##     ## ######## ########"
-						+ this.INIT_COLOR
-						+ "\n \t \t \t"
-						+ "\033[41m##    ##    ## ##   ###   ### ##          ##     ## ##     ## ##       ##     ##"
-						+ this.INIT_COLOR
-						+ "\n \t \t \t"
-						+ "\033[41m##         ##   ##  #### #### ##          ##     ## ##     ## ##       ##     ##"
-						+ this.INIT_COLOR
-						+ "\n \t \t \t"
-						+ "\033[41m##   #### ##     ## ## ### ## ######      ##     ## ##     ## ######   ########"
-						+ this.INIT_COLOR
-						+ "\n \t \t \t"
-						+ "\033[41m##    ##  ######### ##     ## ##          ##     ##  ##   ##  ##       ##   ##"
-						+ this.INIT_COLOR
-						+ "\n \t \t \t"
-						+ "\033[41m##    ##  ##     ## ##     ## ##          ##     ##   ## ##   ##       ##    ##"
-						+ this.INIT_COLOR
-						+ "\n \t \t \t"
-						+ " \033[41m######   ##     ## ##     ## ########     #######     ###    ######## ##     ##"
-						+ this.INIT_COLOR);
+			.println("\t \t \t"
+					+ " \033[41m######      ###    ##     ## ########     #######  ##     ## ######## ########"
+					+ this.INIT_COLOR
+					+ "\n \t \t \t"
+					+ "\033[41m##    ##    ## ##   ###   ### ##          ##     ## ##     ## ##       ##     ##"
+					+ this.INIT_COLOR
+					+ "\n \t \t \t"
+					+ "\033[41m##         ##   ##  #### #### ##          ##     ## ##     ## ##       ##     ##"
+					+ this.INIT_COLOR
+					+ "\n \t \t \t"
+					+ "\033[41m##   #### ##     ## ## ### ## ######      ##     ## ##     ## ######   ########"
+					+ this.INIT_COLOR
+					+ "\n \t \t \t"
+					+ "\033[41m##    ##  ######### ##     ## ##          ##     ##  ##   ##  ##       ##   ##"
+					+ this.INIT_COLOR
+					+ "\n \t \t \t"
+					+ "\033[41m##    ##  ##     ## ##     ## ##          ##     ##   ## ##   ##       ##    ##"
+					+ this.INIT_COLOR
+					+ "\n \t \t \t"
+					+ " \033[41m######   ##     ## ##     ## ########     #######     ###    ######## ##     ##"
+					+ this.INIT_COLOR);
 	}
 
 	/**
@@ -125,9 +129,12 @@ public class Display {
 	 */
 	void instructions(Player player) {
 
-		System.out.print("\n \t \t Player " + player.getName()
-				+ " : your turn to play.\n" + "\t \t Try to find your "
-				+ player.getColor() + " PRINCESS !\n \n");
+		System.out.print("\n \t \t Player " 
+				+ player.getName()
+				+ " : your turn to play.\n" 
+				+ "\t \t Try to find your "
+				+ player.getColor() 
+				+ " PRINCESS !\n \n");
 	}
 
 	/**
@@ -165,12 +172,11 @@ public class Display {
 
 		for (int i = 0; i < (Dungeon.N * Dungeon.N); i++) {
 
-			this.positions[i] = new DungeonPosition(i / Dungeon.N, i
-					% Dungeon.N);
-			this.rooms[i] = game.getDungeon().getRoom(this.positions[i]);
-			this.colors[i] = this.rooms[i].getColor();
-			this.types[i] = this.rooms[i].getType();
-			this.weapons[i] = this.rooms[i].getWeapon();
+			this.positions[i] 	= new DungeonPosition(i/Dungeon.N, i%Dungeon.N);
+			this.rooms[i] 		= game.getDungeon().getRoom(this.positions[i]);
+			this.colors[i] 		= this.rooms[i].getColor();
+			this.types[i] 		= this.rooms[i].getType();
+			this.weapons[i] 	= this.rooms[i].getWeapon();
 		}
 
 	}
@@ -252,8 +258,10 @@ public class Display {
 
 		if (color != null) {
 
-			this.row2 += colors(color) + String.format("%-17s", color)
-					+ this.INIT_COLOR + "| ";
+			this.row2 += colors(color) 
+				+ String.format("%-17s", color)
+				+ this.INIT_COLOR 
+				+ "| ";
 		}
 	}
 
@@ -282,8 +290,10 @@ public class Display {
 	 */
 	private void positionRow(DungeonPosition position) {
 
-		this.row3 += "\033[37m" + String.format("%-17s", position)
-				+ this.INIT_COLOR + "| ";
+		this.row3 += "\033[37m" 
+			+ String.format("%-17s", position)
+			+ this.INIT_COLOR 
+			+ "| ";
 	}
 
 	/**
@@ -314,7 +324,9 @@ public class Display {
 	 */
 	void weaponChoose() {
 
-		System.out.print("\n \t \t" + "Which weapon do you choose ?" + "\n"
+		System.out.print("\n \t \t" 
+				+ "Which weapon do you choose ?" 
+				+ "\n"
 				+ String.format("\t\t%-44s\n\t\t", this.WEAPONS));
 	}
 
@@ -325,7 +337,9 @@ public class Display {
 	 */
 	void directionChoose() {
 
-		System.out.print("\n \t \t" + "Which way do you go ?" + "\n"
+		System.out.print("\n \t \t" 
+				+ "Which way do you go ?" 
+				+ "\n"
 				+ String.format("\t\t%-44s\n\t\t", this.DIRECTIONS));
 	}
 
@@ -336,7 +350,8 @@ public class Display {
 	 */
 	void gate() {
 
-		System.out.println("\n\t\t" + this.CODE_COLOR[0]
+		System.out.println("\n\t\t" 
+				+ this.CODE_COLOR[0]
 				+ "You found a magical door. "
 				+ "You can teleport yourself to any unvisited Room !"
 				+ this.INIT_COLOR);
@@ -362,8 +377,11 @@ public class Display {
 	 */
 	void rowChoose() {
 
-		System.out.print("\n \t \t" + "Which row do you choose ?" + "\n\t\t"
-				+ "From up to down : 0 - 1 - 2 - 3 - 4 " + "\n\t\t");
+		System.out.print("\n \t \t" 
+				+ "Which row do you choose ?" 
+				+ "\n\t\t"
+				+ "From up to down : 0 - 1 - 2 - 3 - 4 " 
+				+ "\n\t\t");
 	}
 
 	/**
@@ -373,8 +391,11 @@ public class Display {
 	 */
 	void columnChoose() {
 
-		System.out.print("\n \t \t" + "Which column do you choose ?" + "\n\t\t"
-				+ "From left to right : 0 - 1 - 2 - 3 - 4 " + "\n\t\t");
+		System.out.print("\n \t \t" 
+				+ "Which column do you choose ?" 
+				+ "\n\t\t"
+				+ "From left to right : 0 - 1 - 2 - 3 - 4 " 
+				+ "\n\t\t");
 	}
 
 	/**
@@ -384,7 +405,8 @@ public class Display {
 	 */
 	void joker() {
 
-		System.out.println("\n\t\t" + this.CODE_COLOR[0]
+		System.out.println("\n\t\t" 
+				+ this.CODE_COLOR[0]
 				+ "You can not kill that BLORK But in a last "
 				+ "effort, you quickly change weapon using your JOKER."
 				+ this.INIT_COLOR);
@@ -420,20 +442,20 @@ public class Display {
 
 		switch (color) {
 
-		case RED:
-			colorCode = this.CODE_COLOR[0];
-			break;
-		case GREEN:
-			colorCode = this.CODE_COLOR[1];
-			break;
-		case BLUE:
-			colorCode = this.CODE_COLOR[2];
-			break;
-		case YELLOW:
-			colorCode = this.CODE_COLOR[3];
-			break;
-		default:
-			break;
+			case RED:
+				colorCode = this.CODE_COLOR[0];
+				break;
+			case GREEN:
+				colorCode = this.CODE_COLOR[1];
+				break;
+			case BLUE:
+				colorCode = this.CODE_COLOR[2];
+				break;
+			case YELLOW:
+				colorCode = this.CODE_COLOR[3];
+				break;
+			default:
+				break;
 		}
 
 		return colorCode;
@@ -447,7 +469,9 @@ public class Display {
 	 */
 	void nextPlayer() {
 
-		System.out.println("\n \t \t " + this.CODE_COLOR[0] + this.NEXTP
+		System.out.println("\n \t \t " 
+				+ this.CODE_COLOR[0] 
+				+ this.NEXTP
 				+ this.INIT_COLOR);
 
 		this.errorTimer();

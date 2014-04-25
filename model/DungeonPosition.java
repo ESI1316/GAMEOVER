@@ -20,9 +20,8 @@ public class DungeonPosition {
 	private int column;
 	private int row;
 
-	// BARBARIAN's initial position initialization.
 	static {
-		
+
 		P_BARBARIAN_1 = new DungeonPosition();
 		P_BARBARIAN_1.row = -1;
 
@@ -39,15 +38,12 @@ public class DungeonPosition {
 	}
 
 	/**
-	 * Overriding of constructor to keep it private and useful only
-	 * for P_BARBARIAN Instantiation.
 	 * 
-	 *             
+	 * Only used by P_BARBARIAN's DungeonPosition.
+	 *
 	 */
 	private DungeonPosition() {
 
-		// this(0,0);
-		
 		this.row = 0;
 		this.column = 0;
 	}
