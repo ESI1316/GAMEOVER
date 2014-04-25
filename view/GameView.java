@@ -101,7 +101,7 @@ public class GameView {
 			this.onePlay();
 			this.specialState(); // In case of MOVE_BLORK, BEAM_ME_UP or JOKER.
 
-			this.state = this.newGame.isSurrounded(state);
+			this.state = this.newGame.isSurrounded(this.state);
 		}
 	}
 
@@ -127,7 +127,6 @@ public class GameView {
 		} catch (GameOverException e) {
 
 			this.display.errorDisplay(e.getMessage());
-			this.display.errorTimer((long) (2000));
 		}
 	}
 
@@ -253,7 +252,6 @@ public class GameView {
 			} catch (GameOverException gateE) {
 
 				this.display.errorDisplay(gateE.getMessage());
-				this.display.errorTimer((long) (2000));
 				pos = null;
 			}
 		}
@@ -280,7 +278,6 @@ public class GameView {
 			} catch (GameOverException blorkE) {
 
 				this.display.errorDisplay(blorkE.getMessage());
-				this.display.errorTimer((long) (2000));
 				pos = null;
 			}
 		}
@@ -385,7 +382,6 @@ public class GameView {
 		} catch (GameOverException e) {
 
 			this.display.errorDisplay(e.getMessage());
-			this.display.errorTimer((long) (2000));
 		}
 	}
 }

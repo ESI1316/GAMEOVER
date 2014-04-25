@@ -19,19 +19,31 @@ public class Display {
 	private RoomType[] types;
 	private DungeonPosition[] positions;
 	private Room[] rooms;
+	
 	private String row1;
 	private String row2;
 	private String row3;
+	
 	private boolean hidden;
+	
 	private final String ROW_1_INIT = " \t \t| ";
 	private final String ROW_2_INIT = " \t \t| ";
 	private final String ROW_3_INIT = " \t \t| ";
+	
 	private final String CLEAR = "\033[2J\033[;H";
+	
 	private final String[] CODE_COLOR = 
 			{"\033[31m","\033[32m","\033[33m","\033[34m" };
 	private final String INIT_COLOR = "\033[0m";
+	
 	private final String WEAPONS = "POTION(1) - ARROWS(2) - BLUDGEON(3) - GUN(4)";
 	private final String DIRECTIONS = "UP(1) - DOWN(2) - RIGHT(3) - LEFT(4)";
+	private final String TOP = "  ________________ ";
+	
+	private final String NEXTP = "You failed.\n\n\t \t Next player to play. \n";
+	private final String END = "\n\n\t \t \t END OF \"GAME OVER\" THE GAME. \n";
+	
+//	private final String BANNER = GameFile.readBanner();
 
 	/**
 	 * This create a new Display wrote for "GAMEOVER".
@@ -57,9 +69,12 @@ public class Display {
 	 */
 	private void topBoard() {
 
-		System.out.println("\t \t " + " ________________  "
-				+ " ________________ " + "  ________________ "
-				+ "  ________________ " + "  ________________ ");
+		System.out.println("\t \t" 
+				+ this.TOP
+				+ this.TOP 
+				+ this.TOP
+				+ this.TOP 
+				+ this.TOP);
 	}
 
 	/**
@@ -77,6 +92,8 @@ public class Display {
 	 */
 	private void banner() {
 
+//		System.out.println(this.BANNER);
+		
 		System.out
 				.println("\t \t \t"
 						+ " \033[41m######      ###    ##     ## ########     #######  ##     ## ######## ########\033[0m"
@@ -102,9 +119,12 @@ public class Display {
 	 */
 	void playerPlay(Game game) {
 
-		System.out.print("\n \t \t Player " + game.getCurrentPlayer().getName()
-				+ " : your turn to play.\n" + "\t \t Try to find your "
-				+ game.getCurrentPlayer().getColor() + " PRINCESS !\n \n");
+		System.out.print("\n \t \t Player " 
+				+ game.getCurrentPlayer().getName()
+				+ " : your turn to play.\n" 
+				+ "\t \t Try to find your "
+				+ game.getCurrentPlayer().getColor() 
+				+ " PRINCESS !\n \n");
 	}
 
 	/**
@@ -140,8 +160,7 @@ public class Display {
 
 		for (int i = 0; i < (Dungeon.N * Dungeon.N); i++) {
 
-			this.positions[i] = new DungeonPosition(i / Dungeon.N, i
-					% Dungeon.N);
+			this.positions[i] = new DungeonPosition(i/Dungeon.N, i%Dungeon.N);
 			this.rooms[i] = game.getDungeon().getRoom(this.positions[i]);
 			this.colors[i] = this.rooms[i].getColor();
 			this.types[i] = this.rooms[i].getType();
@@ -159,17 +178,18 @@ public class Display {
 
 			this.hidden = this.rooms[i].isHidden();
 			this.positionRow(this.positions[i]);
-//			if (!(hidden)) {
+			
+			if (!(hidden)) {
 
 				this.typeRow(this.types[i]);
 				this.weaponRow(this.types[i], this.weapons[i]);
 				this.colorRow(this.colors[i]);// OR
 				this.emptyRow(this.types[i]);// OR
-//			} else {
-//
-//				this.row1 += String.format("%-17s| ", " ");
-//				this.row2 += String.format("%-17s| ", " ");
-//			}
+			} else {
+
+				this.row1 += String.format("%-17s| ", " ");
+				this.row2 += String.format("%-17s| ", " ");
+			}
 
 			this.displayRow(i);
 			if ((i % Dungeon.N) == (Dungeon.N - 1)) {
@@ -217,8 +237,10 @@ public class Display {
 
 		if (color != null) {
 
-			this.row2 += colors(color) + String.format("%-17s", color)
-					+ "\033[0m" + "| ";
+			this.row2 += colors(color) 
+					+ String.format("%-17s", color)
+					+ this.INIT_COLOR 
+					+ "| ";
 		}
 	}
 
@@ -240,7 +262,9 @@ public class Display {
 	 */
 	private void positionRow(DungeonPosition position) {
 
-		this.row3 += "\033[37m" + String.format("%-17s", position) + "\033[0m"
+		this.row3 += "\033[37m" 
+				+ String.format("%-17s", position) 
+				+ this.INIT_COLOR
 				+ "| ";
 	}
 
@@ -269,8 +293,10 @@ public class Display {
 	 */
 	void weaponChoose() {
 
-		System.out.println("\n \t \tWhich weapon do you choose ?");
-		System.out.print(String.format("\t\t%-44s\n\t\t", this.WEAPONS));
+		System.out.print("\n \t \t"
+				+"Which weapon do you choose ?"
+				+"\n"
+				+String.format("\t\t%-44s\n\t\t", this.WEAPONS));
 	}
 
 	/**
@@ -280,8 +306,10 @@ public class Display {
 	 */
 	void directionChoose() {
 
-		System.out.println("\n \t \tWhich way do you go ?");
-		System.out.print(String.format("\t\t%-44s\n\t\t", this.DIRECTIONS));
+		System.out.print("\n \t \t"
+				+"Which way do you go ?"
+				+"\n"
+				+String.format("\t\t%-44s\n\t\t", this.DIRECTIONS));
 	}
 
 	/**
@@ -319,8 +347,11 @@ public class Display {
 	 */
 	void rowChoose() {
 
-		System.out.println("\n \t \tWhich row do you choose ?");
-		System.out.print("\t\tFrom up to down : 0 - 1 - 2 - 3 - 4 \n\t\t");
+		System.out.print("\n \t \t"
+					+"Which row do you choose ?" 
+					+ "\n\t\t"
+					+"From up to down : 0 - 1 - 2 - 3 - 4 "
+					+"\n\t\t");
 	}
 
 	/**
@@ -330,8 +361,11 @@ public class Display {
 	 */
 	void columnChoose() {
 
-		System.out.println("\n \t \tWhich column do you choose ?");
-		System.out.print("\t\tFrom left to right : 0 - 1 - 2 - 3 - 4 \n\t\t");
+		System.out.print("\n \t \t"
+				+"Which column do you choose ?" 
+				+ "\n\t\t"
+				+"From left to right : 0 - 1 - 2 - 3 - 4 "
+				+"\n\t\t");
 	}
 
 	/**
@@ -352,15 +386,12 @@ public class Display {
 	 * 
 	 * Run a timer to temporary watch message.
 	 * 
-	 * @param millis
-	 *            How many time is the system hold.
-	 * 
 	 */
-	void errorTimer(Long millis) {
+	private void errorTimer() {
 
 		try {
 
-			java.lang.Thread.sleep(millis);
+			java.lang.Thread.sleep(2000);
 		} catch (InterruptedException ea) {
 
 			System.out.println("You only had to wait 2s !");
@@ -411,11 +442,10 @@ public class Display {
 
 		System.out.println("\n \t \t "
 				+this.CODE_COLOR[0]
-				+"You failed.\n \n"
-				+"\t \t Next player to play. \n" 
-				+ this.INIT_COLOR);
+				+this.NEXTP
+				+this.INIT_COLOR);
 
-		this.errorTimer((long) (2000));
+		this.errorTimer();
 	}
 
 	/**
@@ -431,10 +461,10 @@ public class Display {
 
 		this.dungeonBoard(game);
 
-		System.out.print("\n \t \t There is a winner !\n \n");
-		System.out.println("\t \t Winner is : " + game.getWinner().getName());
-		System.out.println("\t \t He found his " + game.getWinner().getColor()
-				+ " PRINCESS ! \n");
+		System.out.print("\n \t \t There is a winner !\n \n"
+				+ "\t \t Winner is : " + game.getWinner().getName() 
+				+ "\n \t \t He found his " + game.getWinner().getColor()
+				+ " PRINCESS ! \n \n");
 	}
 
 	/**
@@ -449,8 +479,9 @@ public class Display {
 
 		this.clearBash();
 		this.banner();
-		System.out.println("\n \t \t \t " + error);
-		System.out.println("\n \t \t \t END OF \"GAME OVER\" THE GAME. \n");
+		System.out.println("\n \t \t \t " 
+				+ error 
+				+ this.END);
 	}
 
 	/**
@@ -463,7 +494,8 @@ public class Display {
 	 */
 	void inputMismatchDisplay(String input) {
 
-		System.out.println("\n \t \t \t " + "A " + input
+		System.out.println("\n \t \t \t A " 
+				+ input
 				+ " number is required.");
 	}
 
@@ -476,5 +508,6 @@ public class Display {
 	void errorDisplay(String error) {
 
 		System.out.println("\n \t \t \t " + error + "\n");
+		this.errorTimer();
 	}
 }

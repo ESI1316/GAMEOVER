@@ -47,7 +47,37 @@ public class GameFile {
 
 	return names;
     }
-
+   
+//    static String readBanner() {
+//    	
+//    	String banner = "";
+//    	try {
+//    	Path path = pathCreation("/Users/michelejosse/Documents/workspace/GameOver/File/banner.txt");
+//    	BufferedReader input = fileOpen(path);
+//    	
+//    	banner = bannerToString(input);
+//    	} catch (GameOverException e) {
+//			
+//    		System.out.println(e.getMessage());
+//		}
+//    	return banner;
+//    }
+//    
+//    static String bannerToString(BufferedReader input) throws GameOverException {
+//    	
+//    	String banner = "";
+//	    String line = null;
+//	    
+//	    lineRead(line, input);
+//	    
+//	    while (line != null) {
+//	    	
+//	    	banner += line + "\n";
+//	    	lineRead(line, input);
+//	    }
+//
+//	    return banner;
+//    }
     /**
      * 
      * Create a new Path made of a String representation of path.
