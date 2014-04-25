@@ -9,7 +9,10 @@ import java.nio.file.Paths;
 import g39631.gameover.model.GameOverException;
 
 /**
- * GameFile class Reading utility for player's file.
+ * This class is a player's file reader utility only made 
+ * to create the game "GAMEOVER". It reads the file line by line 
+ * and fills a string of them. This string will fill an array containing 
+ * player's names and status for beginner players concerned.
  * 
  * @version 2.00
  * 
@@ -27,9 +30,9 @@ public class GameFile {
      * an array cell (name or state).
      * 
      * @param args
-     *            A varargs of String with file path.
+     *            An array of strings with file path.
      * 
-     * @return an array made of string from the file.
+     * @return an array filled of names by the file.
      * 
      * @throws GameOverException
      *             If there is any IOException. If there is no path. If file
@@ -47,37 +50,7 @@ public class GameFile {
 
 	return names;
     }
-   
-//    static String readBanner() {
-//    	
-//    	String banner = "";
-//    	try {
-//    	Path path = pathCreation("/Users/michelejosse/Documents/workspace/GameOver/File/banner.txt");
-//    	BufferedReader input = fileOpen(path);
-//    	
-//    	banner = bannerToString(input);
-//    	} catch (GameOverException e) {
-//			
-//    		System.out.println(e.getMessage());
-//		}
-//    	return banner;
-//    }
-//    
-//    static String bannerToString(BufferedReader input) throws GameOverException {
-//    	
-//    	String banner = "";
-//	    String line = null;
-//	    
-//	    lineRead(line, input);
-//	    
-//	    while (line != null) {
-//	    	
-//	    	banner += line + "\n";
-//	    	lineRead(line, input);
-//	    }
-//
-//	    return banner;
-//    }
+
     /**
      * 
      * Create a new Path made of a String representation of path.

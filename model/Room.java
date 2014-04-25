@@ -3,7 +3,10 @@ package g39631.gameover.model;
 import java.util.Objects;
 
 /**
- * Room class
+ * This class create a room of the dungeon and puts all the elements 
+ * that compose it.
+ * It is closed and impossible to know what there is inside. After a visit, 
+ * a Barbarian knows what did he find inside.
  * 
  * @version 2.00
  * 

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Game class
+ * This class has all game's mechanics. It run Player's actions like move
+ * into Dungeon, fight a BLORK, hide a Room, use a GATE,.. 
  * 
  * @version 2.00
  * 
@@ -34,6 +35,12 @@ public class Game {
 	 */
 	public Game(String... names) {
 
+		/*
+		 * Wrong number of players are tests by g39631.gameover.view.GameFile 
+		 * because of number of file's lines read. If it did not do, 
+		 * an exception would be launched in g39631.gameover.model.Game 
+		 * after an unknown number of row read (for example 300).
+		 */
 		Player.playersNb = 0;
 
 		this.dungeon = Dungeon.getInstance();
@@ -606,7 +613,7 @@ public class Game {
 	 * @param dungeon
 	 *            A new Dungeon.
 	 */
-	protected void setDungeon(Dungeon dungeon) {
+	void setDungeon(Dungeon dungeon) {
 
 		this.dungeon = dungeon;
 	}

@@ -5,6 +5,16 @@ import g39631.gameover.model.GameOverException;
 
 import org.junit.Test;
 
+/**
+ * JUnit test class - GameFile
+ * 
+ * @author Placentino Simon
+ * @author G39631
+ * 
+ *         HEB ESI LAJ1 2013-2014
+ * @version 2.00
+ * 
+ */
 public class GameFileTest {
 
     @Test

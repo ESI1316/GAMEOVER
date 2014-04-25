@@ -31,14 +31,15 @@ public class RoomTest {
 
 			Room room = new Room(RoomType.BLORK, null, null, false);
 
-			assertTrue(room.getType() == RoomType.BLORK && room.getWeapon() == null
+			assertTrue(room.getType() == RoomType.BLORK && room.getWeapon()==null
 					&& room.getColor() == null && room.isHidden() == false);
 		}
 
 	@Test
 		public void test_constr_03() {
 
-			Room room = new Room(RoomType.PRINCESS, null, BarbarianColor.RED, false);
+			Room room = new Room(RoomType.PRINCESS,null,BarbarianColor.RED,
+					false);
 
 			assertTrue(room.getType() == RoomType.PRINCESS
 					&& room.getWeapon() == null
@@ -51,7 +52,7 @@ public class RoomTest {
 
 			Room room = new Room(RoomType.GATE, null, null, false);
 
-			assertTrue(room.getType() == RoomType.GATE && room.getWeapon() == null
+			assertTrue(room.getType() == RoomType.GATE && room.getWeapon()==null
 					&& room.getColor() == null && room.isHidden() == false);
 		}
 
@@ -98,7 +99,7 @@ public class RoomTest {
 		public void test_hashCode_02() {
 
 			Room room = new Room(RoomType.BLORK, WeaponType.POTION, null, false);
-			Room room2 = new Room(RoomType.BLORK, WeaponType.POTION, null, false);
+			Room room2 = new Room(RoomType.BLORK, WeaponType.POTION, null,false);
 
 			assertEquals(room.hashCode(), room2.hashCode());
 		}
@@ -106,7 +107,7 @@ public class RoomTest {
 	@Test
 		public void test_hashCode_03() {
 
-			Room room = new Room(RoomType.BLORK, WeaponType.BLUDGEON, null, false);
+			Room room = new Room(RoomType.BLORK, WeaponType.BLUDGEON,null,false);
 			Room room2 = new Room(RoomType.PRINCESS, null, BarbarianColor.GREEN,
 					false);
 
@@ -146,7 +147,7 @@ public class RoomTest {
 	@Test
 		public void test_equals_04() {
 
-			Room room = new Room(RoomType.PRINCESS, null, BarbarianColor.RED, true);
+			Room room = new Room(RoomType.PRINCESS,null,BarbarianColor.RED,true);
 			Room room2 = new Room(RoomType.PRINCESS, null, BarbarianColor.GREEN,
 					true);
 

@@ -5,7 +5,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Dungeon class
+ * This class defines how current Dungeon is. By using "singleton" design
+ * pattern, it can be one and only one Game at the same time. 
+ * It creates a board with the number of Rooms it has been said to create. 
  * 
  * @version 2.00
  * 

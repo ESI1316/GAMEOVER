@@ -1,7 +1,7 @@
 package g39631.gameover.model;
 
 /**
- * Enumeration of Barbarian's directions in the Dungeon.
+ * Every directions you can choose to go inside the Dungeon.
  * 
  * @version 2.00
  * 

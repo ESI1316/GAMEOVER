@@ -3,7 +3,10 @@ package g39631.gameover.view;
 import g39631.gameover.model.*;
 
 /**
- * Display class
+ * 
+ * This class is responsible for all display requests. 
+ * It has been constructed as a display dictionary for every 
+ * interaction with the player.
  * 
  * @version 2.00
  * 
@@ -19,35 +22,35 @@ public class Display {
 	private RoomType[] types;
 	private DungeonPosition[] positions;
 	private Room[] rooms;
-	
+
 	private String row1;
 	private String row2;
 	private String row3;
-	
-	private boolean hidden;
-	
+
 	private final String ROW_1_INIT = " \t \t| ";
 	private final String ROW_2_INIT = " \t \t| ";
 	private final String ROW_3_INIT = " \t \t| ";
-	
+	private final String TOP = "  ________________ ";
+
 	private final String CLEAR = "\033[2J\033[;H";
-	
-	private final String[] CODE_COLOR = 
-			{"\033[31m","\033[32m","\033[33m","\033[34m" };
+
+	private final String[] CODE_COLOR = { "\033[31m", "\033[32m", "\033[33m",
+			"\033[34m" };
 	private final String INIT_COLOR = "\033[0m";
-	
+
 	private final String WEAPONS = "POTION(1) - ARROWS(2) - BLUDGEON(3) - GUN(4)";
 	private final String DIRECTIONS = "UP(1) - DOWN(2) - RIGHT(3) - LEFT(4)";
-	private final String TOP = "  ________________ ";
-	
-	private final String NEXTP = "You failed.\n\n\t \t Next player to play. \n";
+
+	private final String NEXTP = "You failed.\n\n\t\t Next player to play. \n";
 	private final String END = "\n\n\t \t \t END OF \"GAME OVER\" THE GAME. \n";
-	
-//	private final String BANNER = GameFile.readBanner();
+
+	// private final String BANNER = GameFile.readBanner();
 
 	/**
-	 * This create a new Display wrote for "GAMEOVER".
-	 * 
+	 * This create a new Display wrote for "GAMEOVER". Arrays are number of
+	 * Rooms length and their informations are initialized when
+	 * dungeonBoard(Game game) is called. Row1-2-3 are going to be complete with
+	 * Dungeon informations.
 	 */
 	Display() {
 
@@ -59,7 +62,7 @@ public class Display {
 		this.row1 = ROW_1_INIT;
 		this.row2 = ROW_2_INIT;
 		this.row3 = ROW_3_INIT;
-		this.hidden = true;
+		// this.hidden = true;
 	}
 
 	/**
@@ -69,70 +72,70 @@ public class Display {
 	 */
 	private void topBoard() {
 
-		System.out.println("\t \t" 
-				+ this.TOP
-				+ this.TOP 
-				+ this.TOP
-				+ this.TOP 
+		System.out.println("\t \t" + this.TOP + this.TOP + this.TOP + this.TOP
 				+ this.TOP);
 	}
 
 	/**
 	 * Clear Unix based terminal.
 	 */
-	void clearBash() {
+	private void clearBash() {
 
 		System.out.print(this.CLEAR);
 	}
 
 	/**
 	 * 
-	 * Display a banner of the game.
+	 * Display a "GAME OVER" banner.
 	 * 
 	 */
 	private void banner() {
 
-//		System.out.println(this.BANNER);
-		
+		// System.out.println(this.BANNER);
+
 		System.out
 				.println("\t \t \t"
-						+ " \033[41m######      ###    ##     ## ########     #######  ##     ## ######## ########\033[0m"
+						+ " \033[41m######      ###    ##     ## ########     #######  ##     ## ######## ########"
+						+ this.INIT_COLOR
 						+ "\n \t \t \t"
-						+ "\033[41m##    ##    ## ##   ###   ### ##          ##     ## ##     ## ##       ##     ##\033[0m"
+						+ "\033[41m##    ##    ## ##   ###   ### ##          ##     ## ##     ## ##       ##     ##"
+						+ this.INIT_COLOR
 						+ "\n \t \t \t"
-						+ "\033[41m##         ##   ##  #### #### ##          ##     ## ##     ## ##       ##     ##\033[0m"
+						+ "\033[41m##         ##   ##  #### #### ##          ##     ## ##     ## ##       ##     ##"
+						+ this.INIT_COLOR
 						+ "\n \t \t \t"
-						+ "\033[41m##   #### ##     ## ## ### ## ######      ##     ## ##     ## ######   ########\033[0m"
+						+ "\033[41m##   #### ##     ## ## ### ## ######      ##     ## ##     ## ######   ########"
+						+ this.INIT_COLOR
 						+ "\n \t \t \t"
-						+ "\033[41m##    ##  ######### ##     ## ##          ##     ##  ##   ##  ##       ##   ##\033[0m"
+						+ "\033[41m##    ##  ######### ##     ## ##          ##     ##  ##   ##  ##       ##   ##"
+						+ this.INIT_COLOR
 						+ "\n \t \t \t"
-						+ "\033[41m##    ##  ##     ## ##     ## ##          ##     ##   ## ##   ##       ##    ##\033[0m"
+						+ "\033[41m##    ##  ##     ## ##     ## ##          ##     ##   ## ##   ##       ##    ##"
+						+ this.INIT_COLOR
 						+ "\n \t \t \t"
-						+ " \033[41m######   ##     ## ##     ## ########     #######     ###    ######## ##     ##\033[0m");
+						+ " \033[41m######   ##     ## ##     ## ########     #######     ###    ######## ##     ##"
+						+ this.INIT_COLOR);
 	}
 
 	/**
-	 * Print a start message.
+	 * Display a start message.
 	 * 
-	 * @param game
-	 *            The current game to get Players informations.
+	 * @param player
+	 *            The current player.
 	 */
-	void playerPlay(Game game) {
+	void instructions(Player player) {
 
-		System.out.print("\n \t \t Player " 
-				+ game.getCurrentPlayer().getName()
-				+ " : your turn to play.\n" 
-				+ "\t \t Try to find your "
-				+ game.getCurrentPlayer().getColor() 
-				+ " PRINCESS !\n \n");
+		System.out.print("\n \t \t Player " + player.getName()
+				+ " : your turn to play.\n" + "\t \t Try to find your "
+				+ player.getColor() + " PRINCESS !\n \n");
 	}
 
 	/**
 	 * 
-	 * Display all the Dungeon with its hidden and visited parts.
+	 * Prepare and display all the Dungeon with its hidden and visited parts.
 	 * 
 	 * @param game
-	 *            The current game to get Rooms informations.
+	 *            The current Game to get Rooms informations.
 	 * 
 	 * @throws GameOverException
 	 *             If you create a DungeonPosition outside the Dungeon by a
@@ -149,6 +152,8 @@ public class Display {
 
 	/**
 	 * 
+	 * Fill arrays attributes with every useful Dungeon's informations.
+	 * 
 	 * @param game
 	 *            The current game to get Rooms informations.
 	 * 
@@ -160,7 +165,8 @@ public class Display {
 
 		for (int i = 0; i < (Dungeon.N * Dungeon.N); i++) {
 
-			this.positions[i] = new DungeonPosition(i/Dungeon.N, i%Dungeon.N);
+			this.positions[i] = new DungeonPosition(i / Dungeon.N, i
+					% Dungeon.N);
 			this.rooms[i] = game.getDungeon().getRoom(this.positions[i]);
 			this.colors[i] = this.rooms[i].getColor();
 			this.types[i] = this.rooms[i].getType();
@@ -170,16 +176,15 @@ public class Display {
 	}
 
 	/**
-     * 
-     */
+	 * Fill the Dungeon's rows of informations.
+	 */
 	private void displayBoard() {
 
 		for (int i = 0; i < (Dungeon.N * Dungeon.N); i++) {
 
-			this.hidden = this.rooms[i].isHidden();
 			this.positionRow(this.positions[i]);
-			
-			if (!(hidden)) {
+
+			if (!this.rooms[i].isHidden()) {
 
 				this.typeRow(this.types[i]);
 				this.weaponRow(this.types[i], this.weapons[i]);
@@ -201,7 +206,10 @@ public class Display {
 
 	/**
 	 * 
+	 * Fill Room's type informations in his own string.
+	 * 
 	 * @param roomType
+	 *            What kind of Room is it.
 	 */
 	private void typeRow(RoomType roomType) {
 
@@ -210,8 +218,13 @@ public class Display {
 
 	/**
 	 * 
+	 * Fill BLORK's weapon informations in the additional information's row.
+	 * 
 	 * @param roomType
+	 *            What kind of Room is it.
+	 * 
 	 * @param weaponType
+	 *            What kind of BLORK's weapon is it.
 	 */
 	private void weaponRow(RoomType roomType, WeaponType weaponType) {
 
@@ -229,6 +242,8 @@ public class Display {
 
 	/**
 	 * 
+	 * Fill PRINCESS's color in the additional information's row.
+	 * 
 	 * @param color
 	 *            The BarbarianColor of the Room.
 	 * 
@@ -237,16 +252,16 @@ public class Display {
 
 		if (color != null) {
 
-			this.row2 += colors(color) 
-					+ String.format("%-17s", color)
-					+ this.INIT_COLOR 
-					+ "| ";
+			this.row2 += colors(color) + String.format("%-17s", color)
+					+ this.INIT_COLOR + "| ";
 		}
 	}
 
 	/**
+	 * Do not fill any informations in the additional information's row.
 	 * 
 	 * @param roomType
+	 *            What kind of Room is it.
 	 */
 	private void emptyRow(RoomType roomType) {
 
@@ -258,20 +273,26 @@ public class Display {
 
 	/**
 	 * 
+	 * Fill positions (along x-axis and -y-axis) in the location's row (reversed
+	 * Cartesian coordinates plan).
+	 * 
 	 * @param position
+	 *            A DungeonPosition in the Dungeon.
+	 * 
 	 */
 	private void positionRow(DungeonPosition position) {
 
-		this.row3 += "\033[37m" 
-				+ String.format("%-17s", position) 
-				+ this.INIT_COLOR
-				+ "| ";
+		this.row3 += "\033[37m" + String.format("%-17s", position)
+				+ this.INIT_COLOR + "| ";
 	}
 
 	/**
 	 * 
+	 * Display all the Dungeon with its hidden and visited parts.
+	 * 
 	 * @param i
-	 *            A Room index.
+	 *            A Room's index to know how many Rooms have been analyzed.
+	 * 
 	 */
 	private void displayRow(int i) {
 
@@ -288,39 +309,34 @@ public class Display {
 
 	/**
 	 * 
-	 * Display a message to choose weapon.
+	 * Display a message to select weapon.
 	 * 
 	 */
 	void weaponChoose() {
 
-		System.out.print("\n \t \t"
-				+"Which weapon do you choose ?"
-				+"\n"
-				+String.format("\t\t%-44s\n\t\t", this.WEAPONS));
+		System.out.print("\n \t \t" + "Which weapon do you choose ?" + "\n"
+				+ String.format("\t\t%-44s\n\t\t", this.WEAPONS));
 	}
 
 	/**
 	 * 
-	 * Display a message to choose direction.
+	 * Display a message to select Barbarian's direction through the Dungeon.
 	 * 
 	 */
 	void directionChoose() {
 
-		System.out.print("\n \t \t"
-				+"Which way do you go ?"
-				+"\n"
-				+String.format("\t\t%-44s\n\t\t", this.DIRECTIONS));
+		System.out.print("\n \t \t" + "Which way do you go ?" + "\n"
+				+ String.format("\t\t%-44s\n\t\t", this.DIRECTIONS));
 	}
 
 	/**
 	 * 
-	 * Display a message that BEAM_ME_UP is usable.
+	 * Display a message to warn BEAM_ME_UP is available.
 	 * 
 	 */
 	void gate() {
 
-		System.out.println("\n\t\t" 
-				+ this.CODE_COLOR[0]
+		System.out.println("\n\t\t" + this.CODE_COLOR[0]
 				+ "You found a magical door. "
 				+ "You can teleport yourself to any unvisited Room !"
 				+ this.INIT_COLOR);
@@ -328,13 +344,12 @@ public class Display {
 
 	/**
 	 * 
-	 * Display a message that you have to transfer an INVICIBLE BLORK.
+	 * Display a message to warn that INVICIBLE BLORK can be moved.
 	 * 
 	 */
 	void invincible() {
 
-		System.out.println("\n\t\t" 
-				+ this.CODE_COLOR[0]
+		System.out.println("\n\t\t" + this.CODE_COLOR[0]
 				+ "You can not kill that INVINCIBLE BLORK but in a last "
 				+ "effort, you quickly transfer it to another Room."
 				+ this.INIT_COLOR);
@@ -342,41 +357,34 @@ public class Display {
 
 	/**
 	 * 
-	 * Display a message to choose row.
+	 * Display a message to select row (y-axis).
 	 * 
 	 */
 	void rowChoose() {
 
-		System.out.print("\n \t \t"
-					+"Which row do you choose ?" 
-					+ "\n\t\t"
-					+"From up to down : 0 - 1 - 2 - 3 - 4 "
-					+"\n\t\t");
+		System.out.print("\n \t \t" + "Which row do you choose ?" + "\n\t\t"
+				+ "From up to down : 0 - 1 - 2 - 3 - 4 " + "\n\t\t");
 	}
 
 	/**
 	 * 
-	 * Display a message to choose column.
+	 * Display a message to choose column (x-axis).
 	 * 
 	 */
 	void columnChoose() {
 
-		System.out.print("\n \t \t"
-				+"Which column do you choose ?" 
-				+ "\n\t\t"
-				+"From left to right : 0 - 1 - 2 - 3 - 4 "
-				+"\n\t\t");
+		System.out.print("\n \t \t" + "Which column do you choose ?" + "\n\t\t"
+				+ "From left to right : 0 - 1 - 2 - 3 - 4 " + "\n\t\t");
 	}
 
 	/**
 	 * 
-	 * Display a message that JOKER is usable.
+	 * Display a message to warn that JOKER gives you another attempt.
 	 * 
 	 */
 	void joker() {
 
-		System.out.println("\n\t\t" 
-				+ this.CODE_COLOR[0]
+		System.out.println("\n\t\t" + this.CODE_COLOR[0]
 				+ "You can not kill that BLORK But in a last "
 				+ "effort, you quickly change weapon using your JOKER."
 				+ this.INIT_COLOR);
@@ -384,7 +392,7 @@ public class Display {
 
 	/**
 	 * 
-	 * Run a timer to temporary watch message.
+	 * Run a timer to temporarily watch message.
 	 * 
 	 */
 	private void errorTimer() {
@@ -401,7 +409,7 @@ public class Display {
 	/**
 	 * 
 	 * @param color
-	 *            A PRINCESS color.
+	 *            The color of a bound barbarian to a princess.
 	 * 
 	 * @return A string with bash color code.
 	 * 
@@ -433,17 +441,14 @@ public class Display {
 
 	/**
 	 * 
-	 * Print a failed message and call next Player. Using Thread to temporarily
-	 * display message.
+	 * Display a failed message and call next Player.
 	 * 
 	 * @see java.lang.Thread#sleep(long)
 	 */
 	void nextPlayer() {
 
-		System.out.println("\n \t \t "
-				+this.CODE_COLOR[0]
-				+this.NEXTP
-				+this.INIT_COLOR);
+		System.out.println("\n \t \t " + this.CODE_COLOR[0] + this.NEXTP
+				+ this.INIT_COLOR);
 
 		this.errorTimer();
 	}
@@ -451,63 +456,61 @@ public class Display {
 	/**
 	 * Display a message to announce the winner.
 	 * 
-	 * @param game
-	 *            The current game to get winner's informations.
-	 * @throws GameOverException
-	 *             From Display.dungeonBoard(game) : If you create a
-	 *             DungeonPosition outside the Dungeon by a mismatch.
+	 * @param winner
+	 *            The Game's winner.
+	 * 
 	 */
-	void winner(Game game) throws GameOverException {
+	void winner(Player winner) {
 
-		this.dungeonBoard(game);
-
+		this.clearBash();
+		this.banner();
+		this.topBoard();
+		this.displayBoard();
 		System.out.print("\n \t \t There is a winner !\n \n"
-				+ "\t \t Winner is : " + game.getWinner().getName() 
-				+ "\n \t \t He found his " + game.getWinner().getColor()
+				+ "\t \t Winner is : " + winner.getName()
+				+ "\n \t \t He found his " + winner.getColor()
 				+ " PRINCESS ! \n \n");
 	}
 
 	/**
 	 * 
-	 * Print exception message that shut program down.
+	 * Display an error's message that stops "GAMEOVER".
 	 * 
 	 * @param error
-	 *            A exception message.
+	 *            An error's message.
 	 * 
 	 */
 	void shutDown(String error) {
 
 		this.clearBash();
 		this.banner();
-		System.out.println("\n \t \t \t " 
-				+ error 
-				+ this.END);
+		System.out.println("\n \t \t \t " + error + this.END);
 	}
 
 	/**
 	 * 
-	 * Display an inputMismatch error message to say what is required.
+	 * Display an inputMismatch's message to say what is required.
 	 * 
 	 * @param input
-	 *            name of required input.
+	 *            Name of required input.
 	 * 
 	 */
 	void inputMismatchDisplay(String input) {
 
-		System.out.println("\n \t \t \t A " 
-				+ input
-				+ " number is required.");
+		this.errorDisplay("A " + input + " number is required.");
 	}
 
 	/**
 	 * 
+	 * Display an error's message to say what is wrong.
+	 * 
 	 * @param error
-	 *            every error.getMessage()
+	 *            A GameOverException's message.
 	 * 
 	 */
 	void errorDisplay(String error) {
 
-		System.out.println("\n \t \t \t " + error + "\n");
+		System.out.println("\n \t \t \t " + error);
 		this.errorTimer();
 	}
 }

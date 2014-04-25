@@ -15,7 +15,6 @@ import org.junit.Test;
  */
 public class PlayerTest {
 
-	// playersNb test
 	@Test
 		public void test_playersNb_01() {
 
@@ -79,7 +78,7 @@ public class PlayerTest {
 			Player.playersNb = 0;
 			Player player = new Player("Simon");
 
-			assertEquals(DungeonPosition.P_BARBARIAN_1, player.getInitPosition());
+			assertEquals(DungeonPosition.P_BARBARIAN_1,player.getInitPosition());
 		}
 
 	@Test
@@ -89,7 +88,8 @@ public class PlayerTest {
 			new Player("Simon");
 			Player player2 = new Player("Johnny");
 
-			assertEquals(DungeonPosition.P_BARBARIAN_2, player2.getInitPosition());
+			assertEquals(DungeonPosition.P_BARBARIAN_2,
+					player2.getInitPosition());
 		}
 
 	@Test
@@ -100,7 +100,8 @@ public class PlayerTest {
 			new Player("Johnny");
 			Player player3 = new Player("Jason");
 
-			assertEquals(DungeonPosition.P_BARBARIAN_3, player3.getInitPosition());
+			assertEquals(DungeonPosition.P_BARBARIAN_3, 
+					player3.getInitPosition());
 		}
 
 	@Test
@@ -112,15 +113,14 @@ public class PlayerTest {
 			new Player("Jason");
 			Player player4 = new Player("Jean-Charles de La Rondelle");
 
-			assertEquals(DungeonPosition.P_BARBARIAN_4, player4.getInitPosition());
+			assertEquals(DungeonPosition.P_BARBARIAN_4, 
+					player4.getInitPosition());
 		}
 
 	// Color test
 	@Test
 		public void test_constr_05() {
-			/*
-			 * playersNb must be at ZERO to create new players.
-			 */
+
 			Player.playersNb = 0;
 
 			Player player = new Player("Olive");
@@ -159,8 +159,6 @@ public class PlayerTest {
 			Player player4 = new Player("Olive");
 
 			assertEquals(BarbarianColor.YELLOW, player4.getColor());
-			// or
-			// assertEquals(BarbarianColor.valueOf()[Player.playersNb-1],player.getColor());
 		}
 
 }

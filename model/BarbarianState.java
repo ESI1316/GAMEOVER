@@ -1,7 +1,7 @@
 package g39631.gameover.model;
 
 /**
- * Enumeration of Barbarian's states.
+ * Every kinds of states that can a barbarian have.
  * 
  * @version 2.00
  * 

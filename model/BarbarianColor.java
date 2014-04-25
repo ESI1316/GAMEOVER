@@ -1,7 +1,7 @@
 package g39631.gameover.model;
 
 /**
- * Enumeration of Barbarian's colors.
+ * All kind of Barbarian's color.
  * 
  * @version 2.00
  * 

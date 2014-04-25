@@ -16,7 +16,6 @@ import static org.junit.Assert.*;
  */
 public class DungeonPositionTest {
 
-	// Constructor & getters test
 	@Test
 		public void test_const_01() throws GameOverException {
 

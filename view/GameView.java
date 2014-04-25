@@ -6,7 +6,9 @@ import java.util.Scanner;
 import g39631.gameover.model.*;
 
 /**
- * GameView class
+ * 
+ * This class is the link between players, displays and game's mechanics. 
+ * It treats player's input, gives game's instructions and feedbacks.
  * 
  * @version 2.00
  * 
@@ -24,7 +26,13 @@ public class GameView {
 	
 	/**
 	 * 
+	 * This try to launch "GAMEOVER".
+	 * First step : set its own Display &amp;. 
+	 * Second step : try to create a new Game from player's list.
+	 * Third step : launch GAMEOVER.
+	 * 
 	 * @param args
+	 *            Player's file path (first position of the table).
 	 */
 	private GameView(String[] args) {
 		
@@ -32,8 +40,8 @@ public class GameView {
 			
 		this.display = new Display();
 		this.creation(args);
-		this.state = BarbarianState.READY_TO_GO;
 		
+		this.state = BarbarianState.READY_TO_GO;	
 		this.gameOverTheGame(args);
 		} catch (GameOverException ex) {
 
@@ -44,8 +52,13 @@ public class GameView {
 	
 	/**
 	 * 
+	 * This launches a new Game with player's file. He calls GameView constructor
+	 * to set everything. 
+	 * This is only used to run the application.
+	 * 
 	 * @param args
-	 *            Player's file path (args[0]).
+	 *            Player's file path (first position of the table).
+	 *            
 	 */
 	public static void main(String[] args) {
 
@@ -54,8 +67,15 @@ public class GameView {
 	
 	/**
 	 * 
+	 * This reads Player's file fills an array of names &amp; novices status.
+	 * 
 	 * @param args
+	 *            Player's file path (first position of the table).
+	 *            
 	 * @throws GameOverException
+	 * 				If there is any IOException (OPEN-CLOSE-READ-PATH).
+	 * 				If there is any problem during Game's creation.
+	 * 
 	 */
 	private void creation(String[] args) throws GameOverException {
 
@@ -66,7 +86,12 @@ public class GameView {
 	/**
 	 * 
 	 * @param args
+	 * 			An array made of player's informations.
+	 *  
 	 * @throws GameOverException
+	 * 			If there is any Display's error because of DungeonPosition 
+	 * 			created outside the Dungeon.
+	 * 
 	 */
 	private void gameOverTheGame(String[] args) throws GameOverException {
 		
@@ -77,7 +102,7 @@ public class GameView {
 				this.nextPlayerTurn();
 			}
 
-			this.display.winner(this.newGame);
+			this.display.winner(this.newGame.getWinner());
 			System.exit(0);
 	}
 	
@@ -96,7 +121,7 @@ public class GameView {
 				&& (this.state != BarbarianState.WIN)) {
 
 			this.display.dungeonBoard(this.newGame);
-			this.display.playerPlay(this.newGame); // Instructions.
+			this.display.instructions(this.newGame.getCurrentPlayer());
 
 			this.onePlay();
 			this.specialState(); // In case of MOVE_BLORK, BEAM_ME_UP or JOKER.

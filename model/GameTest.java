@@ -14,21 +14,12 @@ import org.junit.Test;
  * 
  */
 public class GameTest {
+
 	/*
-	 * @Test(expected = GameOverException.class) public void test_constr_01()
-	 * throws GameOverException {
-	 * 
-	 * Game newGame = new Game("Simon"); }
-	 * 
-	 * @Test(expected = GameOverException.class) public void test_constr_02()
-	 * throws GameOverException {
-	 * 
-	 * Game newGame = new Game(); }
-	 * 
-	 * @Test(expected = GameOverException.class) public void test_constr_03()
-	 * throws GameOverException {
-	 * 
-	 * Game newGame = new Game("Josh", "Trent", "Dave", "Louis", "Levis"); }
+	 * Wrong number of players are tests by g39631.gameover.view.GameFile because
+	 * of number of file's lines read. If it did not do, an exception would
+	 * be launched in g39631.gameover.model.Game after an unknown number of
+	 * row read (for example 300).
 	 */
 	@Test
 		public void test_constr_04() throws GameOverException {
@@ -54,7 +45,7 @@ public class GameTest {
 			assertEquals(2, Player.playersNb);
 		}
 
-	@Test
+	@Test // Is DungeonBoard only made of keys as I wished ?
 		public void test_constr_07() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
@@ -75,7 +66,8 @@ public class GameTest {
 			while ((j < 25) && ok) {
 
 				ok = (newGame.getDungeon()
-						.getRoom(new DungeonPosition(j / 5, j % 5)).getType() == RoomType.KEY);
+						.getRoom(new DungeonPosition(j / 5, j % 5))
+						.getType() == RoomType.KEY);
 
 				j = j + 1;
 			}
@@ -120,7 +112,7 @@ public class GameTest {
 			newGame.play(Direction.RIGHT, WeaponType.ARROWS);
 		}
 
-	@Test
+	@Test // I do not die if I have good weapon.
 		public void test_play_04() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
@@ -137,12 +129,13 @@ public class GameTest {
 			Game newGame = new Game("Salvina", "Deborou", "Antonou");
 			newGame.setDungeon(dungeon);
 			
-			assertTrue(newGame.play(Direction.DOWN, WeaponType.ARROWS) == BarbarianState.CONTINUE);
+			assertTrue(newGame.play(Direction.DOWN, WeaponType.ARROWS) 
+					== BarbarianState.CONTINUE);
 
 			dungeon.setInstance();
 		}
 
-	@Test
+	@Test // I do not die if it is a KEY.
 		public void test_play_05() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
@@ -157,12 +150,13 @@ public class GameTest {
 			Game newGame = new Game("Salvina", "Deborou", "Antonou");
 			newGame.setDungeon(dungeon);
 
-			assertTrue(newGame.play(Direction.DOWN, WeaponType.ARROWS) == BarbarianState.CONTINUE);
+			assertTrue(newGame.play(Direction.DOWN, WeaponType.ARROWS) 
+					== BarbarianState.CONTINUE);
 
 			dungeon.setInstance();
 		}
 
-	@Test
+	@Test // I do not die if it is a PRINCESS.
 		public void test_play_06() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
@@ -177,12 +171,13 @@ public class GameTest {
 			Game newGame = new Game("Salvina", "Deborou", "Antonou");
 			newGame.setDungeon(dungeon);
 			
-			assertTrue(newGame.play(Direction.DOWN, WeaponType.ARROWS) == BarbarianState.CONTINUE);
+			assertTrue(newGame.play(Direction.DOWN, WeaponType.ARROWS) 
+					== BarbarianState.CONTINUE);
 
 			dungeon.setInstance();
 		}
 
-	@Test
+	@Test // I do not die if it is a GATE.
 		public void test_play_07() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
@@ -197,19 +192,20 @@ public class GameTest {
 			Game newGame = new Game("Salvina", "Deborou", "Antonou");
 			newGame.setDungeon(dungeon);
 			
-			assertTrue(newGame.play(Direction.DOWN, WeaponType.ARROWS) == BarbarianState.BEAM_ME_UP);
+			assertTrue(newGame.play(Direction.DOWN, WeaponType.ARROWS) 
+					== BarbarianState.BEAM_ME_UP);
 
 			dungeon.setInstance();
 		}
 
-	@Test
+	@Test // I am going to move a BLORK if it is invincible.
 		public void test_play_08() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
 
 			for (int i = 0; i < 25; i++) {
 
-				configuration[i / 5][i % 5] = new Room(RoomType.BLORK, null, null,
+				configuration[i / 5][i % 5] = new Room(RoomType.BLORK, null,null,
 						true);
 			}
 
@@ -217,24 +213,24 @@ public class GameTest {
 			Game newGame = new Game("Salvina", "Deborou", "Antonou");
 			newGame.setDungeon(dungeon);
 			
-			assertTrue(newGame.play(Direction.DOWN, WeaponType.ARROWS) == BarbarianState.MOVE_BLORK);
+			assertTrue(newGame.play(Direction.DOWN, WeaponType.ARROWS) 
+					== BarbarianState.MOVE_BLORK);
 
 			dungeon.setInstance();
 		}
 
-	@Test(expected = GameOverException.class)
+	@Test(expected = GameOverException.class) // Going in a visited Room.
 		public void test_play_09() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
 
 			for (int i = 0; i < 25; i++) {
 
-				configuration[i / 5][i % 5] = new Room(RoomType.BLORK, null, null,
+				configuration[i / 5][i % 5] = new Room(RoomType.BLORK, null,null,
 						true);
 			}
 
-			// Visited room.
-			configuration[0][0] = new Room(RoomType.BLORK, WeaponType.ARROWS, null,
+			configuration[0][0] = new Room(RoomType.BLORK,WeaponType.ARROWS,null,
 					false);
 
 			Dungeon dungeon = new Dungeon(configuration);
@@ -246,14 +242,14 @@ public class GameTest {
 			dungeon.setInstance();
 		}
 
-	@Test(expected = GameOverException.class)
+	@Test(expected = GameOverException.class) // If I win and play again.
 		public void test_isOver_02() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
 
 			for (int i = 0; i < 25; i++) {
 
-				configuration[i / 5][i % 5] = new Room(RoomType.BLORK, null, null,
+				configuration[i / 5][i % 5] = new Room(RoomType.BLORK, null,null,
 						true);
 			}
 
@@ -274,14 +270,14 @@ public class GameTest {
 			dungeon.setInstance();
 		}
 
-	@Test(expected = GameOverException.class)
+	@Test(expected = GameOverException.class) // KEY + PRINCESS = WIN
 		public void test_isOver_03() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
 
 			for (int i = 0; i < 25; i++) {
 
-				configuration[i / 5][i % 5] = new Room(RoomType.BLORK, null, null,
+				configuration[i / 5][i % 5] = new Room(RoomType.BLORK, null,null,
 						true);
 
 			}
@@ -310,7 +306,7 @@ public class GameTest {
 
 			for (int i = 0; i < 25; i++) {
 
-				configuration[i / 5][i % 5] = new Room(RoomType.BLORK, null, null,
+				configuration[i / 5][i % 5] = new Room(RoomType.BLORK, null,null,
 						true);
 			}
 
@@ -325,8 +321,8 @@ public class GameTest {
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 
-			assertTrue(newGame.getWinner().getName() == newGame.getCurrentPlayer()
-					.getName());
+			assertTrue(newGame.getWinner().getName() 
+					== newGame.getCurrentPlayer().getName());
 
 			dungeon.setInstance();
 		}
@@ -417,19 +413,18 @@ public class GameTest {
 			assertTrue(newGame.getCurrentPlayer().getName() == "Salvina");
 		}
 
-	@Test
+	@Test // Does next player begin at right place.
 		public void test_nextPlayer_04() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
 
 			for (int i = 0; i < 25; i++) {
 
-				configuration[i / 5][i % 5] = new Room(RoomType.BLORK, null, null,
+				configuration[i / 5][i % 5] = new Room(RoomType.BLORK, null,null,
 						true);
 			}
 
-			// Visited room.
-			configuration[4][4] = new Room(RoomType.BLORK, WeaponType.ARROWS, null,
+			configuration[4][4] = new Room(RoomType.BLORK,WeaponType.ARROWS,null,
 					true);
 
 			Dungeon dungeon = new Dungeon(configuration);
@@ -438,24 +433,24 @@ public class GameTest {
 			
 			newGame.nextPlayer();
 
-			assertTrue(newGame.play(Direction.UP, WeaponType.ARROWS) == BarbarianState.CONTINUE);
+			assertTrue(newGame.play(Direction.UP, WeaponType.ARROWS) 
+					== BarbarianState.CONTINUE);
 
 			dungeon.setInstance();
 		}
 
-	@Test
+	@Test // Does next+next player begin at right place.
 		public void test_nextPlayer_05() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
 
 			for (int i = 0; i < 25; i++) {
 
-				configuration[i / 5][i % 5] = new Room(RoomType.BLORK, null, null,
+				configuration[i / 5][i % 5] = new Room(RoomType.BLORK, null,null,
 						true);
 			}
 
-			// Visited room.
-			configuration[4][0] = new Room(RoomType.BLORK, WeaponType.ARROWS, null,
+			configuration[4][0] = new Room(RoomType.BLORK, WeaponType.ARROWS,null,
 					true);
 
 			Dungeon dungeon = new Dungeon(configuration);
@@ -465,24 +460,25 @@ public class GameTest {
 			newGame.nextPlayer();
 			newGame.nextPlayer();
 
-			assertTrue(newGame.play(Direction.RIGHT, WeaponType.ARROWS) == BarbarianState.CONTINUE);
+			assertTrue(newGame.play(Direction.RIGHT, WeaponType.ARROWS) 
+					== BarbarianState.CONTINUE);
 
 			dungeon.setInstance();
 		}
 
-	@Test
+	@Test // Does next+next+next player begin at right place.
 		public void test_nextPlayer_06() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
 
 			for (int i = 0; i < 25; i++) {
 
-				configuration[i / 5][i % 5] = new Room(RoomType.BLORK, null, null,
+				configuration[i / 5][i % 5] = new Room(RoomType.BLORK, null,null,
 						true);
 			}
 
 			// Visited room.
-			configuration[0][4] = new Room(RoomType.BLORK, WeaponType.ARROWS, null,
+			configuration[0][4] = new Room(RoomType.BLORK,WeaponType.ARROWS,null,
 					true);
 
 			Dungeon dungeon = new Dungeon(configuration);
@@ -493,25 +489,26 @@ public class GameTest {
 			newGame.nextPlayer();
 			newGame.nextPlayer();
 
-			assertTrue(newGame.play(Direction.LEFT, WeaponType.ARROWS) == BarbarianState.CONTINUE);
+			assertTrue(newGame.play(Direction.LEFT, WeaponType.ARROWS) 
+					== BarbarianState.CONTINUE);
 
 			dungeon.setInstance();
 		}
 
-	@Test(expected = GameOverException.class)
+	@Test(expected = GameOverException.class) // I have already been there !
 		public void test_play_10() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
 
 			for (int i = 0; i < 25; i++) {
 
-				configuration[i / 5][i % 5] = new Room(RoomType.BLORK, null, null,
+				configuration[i / 5][i % 5] = new Room(RoomType.BLORK, null,null,
 						true);
 			}
 
-			configuration[0][0] = new Room(RoomType.BLORK, WeaponType.ARROWS, null,
+			configuration[0][0] = new Room(RoomType.BLORK,WeaponType.ARROWS,null,
 					true);
-			configuration[1][0] = new Room(RoomType.BLORK, WeaponType.ARROWS, null,
+			configuration[1][0] = new Room(RoomType.BLORK,WeaponType.ARROWS,null,
 					true);
 
 			Dungeon dungeon = new Dungeon(configuration);
@@ -525,7 +522,7 @@ public class GameTest {
 			dungeon.setInstance();
 		}
 
-	@Test(expected = GameOverException.class)
+	@Test(expected = GameOverException.class) // I have already been there !
 		public void test_play_11() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
@@ -549,7 +546,7 @@ public class GameTest {
 			dungeon.setInstance();
 		}
 
-	@Test(expected = GameOverException.class)
+	@Test(expected = GameOverException.class) //KEY(+ path)+PRINCESS = WIN
 		public void test_play_12() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
@@ -562,13 +559,13 @@ public class GameTest {
 
 			configuration[0][0] = new Room(RoomType.PRINCESS, null,
 					BarbarianColor.RED, true);
-			configuration[1][0] = new Room(RoomType.BLORK, WeaponType.ARROWS, null,
+			configuration[1][0] = new Room(RoomType.BLORK,WeaponType.ARROWS,null,
 					true);
-			configuration[2][0] = new Room(RoomType.BLORK, WeaponType.ARROWS, null,
+			configuration[2][0] = new Room(RoomType.BLORK,WeaponType.ARROWS,null,
 					true);
 			configuration[2][1] = new Room(RoomType.PRINCESS, null,
 					BarbarianColor.GREEN, true);
-			configuration[2][2] = new Room(RoomType.BLORK, WeaponType.POTION, null,
+			configuration[2][2] = new Room(RoomType.BLORK,WeaponType.POTION,null,
 					true);
 			configuration[1][2] = new Room(RoomType.KEY, null, null, true);
 
@@ -589,7 +586,7 @@ public class GameTest {
 			dungeon.setInstance();
 		}
 
-	@Test(expected = GameOverException.class)
+	@Test(expected = GameOverException.class) // I said BLORK out of corners !
 		public void playBlorkInvincible_test_01() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
@@ -600,7 +597,7 @@ public class GameTest {
 						WeaponType.ARROWS, null, true);
 			}
 
-			configuration[0][0] = new Room(RoomType.BLORK, WeaponType.POTION, null,
+			configuration[0][0] = new Room(RoomType.BLORK,WeaponType.POTION,null,
 					true);
 			configuration[1][0] = new Room(RoomType.BLORK, null, null, true);
 			Dungeon dungeon = new Dungeon(configuration);
@@ -613,7 +610,7 @@ public class GameTest {
 			dungeon.setInstance();
 		}
 
-	@Test
+	@Test // Is swapped Room at the right place ?
 		public void playBlorkInvincible_test_02() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
@@ -624,7 +621,7 @@ public class GameTest {
 						WeaponType.ARROWS, null, true);
 			}
 
-			configuration[0][0] = new Room(RoomType.BLORK, WeaponType.POTION, null,
+			configuration[0][0] = new Room(RoomType.BLORK,WeaponType.POTION,null,
 					true);
 			configuration[1][0] = new Room(RoomType.BLORK, null, null, true);
 			Dungeon dungeon = new Dungeon(configuration);
@@ -639,7 +636,7 @@ public class GameTest {
 			dungeon.setInstance();
 		}
 
-	@Test(expected = GameOverException.class)
+	@Test(expected = GameOverException.class) // Only INVINCIBLE can be swapped.
 		public void playBlorkInvincible_test_03() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
@@ -650,7 +647,7 @@ public class GameTest {
 						WeaponType.ARROWS, null, true);
 			}
 
-			configuration[0][0] = new Room(RoomType.BLORK, WeaponType.POTION, null,
+			configuration[0][0] = new Room(RoomType.BLORK,WeaponType.POTION,null,
 					true);
 			configuration[1][0] = new Room(RoomType.BLORK, null, null, true);
 			Dungeon dungeon = new Dungeon(configuration);
@@ -662,7 +659,7 @@ public class GameTest {
 			dungeon.setInstance();
 		}
 
-	@Test(expected = GameOverException.class)
+	@Test(expected = GameOverException.class) // Only INVINCIBLE can be swapped.
 		public void playBlorkInvincible_test_04() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
@@ -673,7 +670,7 @@ public class GameTest {
 						WeaponType.ARROWS, null, true);
 			}
 
-			configuration[0][0] = new Room(RoomType.BLORK, WeaponType.POTION, null,
+			configuration[0][0] = new Room(RoomType.BLORK,WeaponType.POTION,null,
 					true);
 			configuration[1][0] = new Room(RoomType.BLORK, null, null, true);
 			Dungeon dungeon = new Dungeon(configuration);
@@ -685,7 +682,7 @@ public class GameTest {
 			dungeon.setInstance();
 		}
 
-	@Test(expected = GameOverException.class)
+	@Test(expected = GameOverException.class) // Only INVINCIBLE can be swapped.
 		public void playBlorkInvincible_test_05() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
@@ -709,7 +706,7 @@ public class GameTest {
 			dungeon.setInstance();
 		}
 
-	@Test
+	@Test // I feel like Jack O'Neill !
 		public void playGate_test_01() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
@@ -721,7 +718,7 @@ public class GameTest {
 			}
 
 			configuration[0][0] = new Room(RoomType.GATE, null, null, true);
-			configuration[4][4] = new Room(RoomType.BLORK, WeaponType.POTION, null,
+			configuration[4][4] = new Room(RoomType.BLORK,WeaponType.POTION,null,
 					true);
 			Dungeon dungeon = new Dungeon(configuration);
 			Game newGame = new Game("Pierre", "Paul", "Jacques");
@@ -730,13 +727,14 @@ public class GameTest {
 			newGame.play(Direction.DOWN, WeaponType.ARROWS);
 			newGame.playGate(new DungeonPosition(3, 4), WeaponType.ARROWS);
 
-			assertTrue((newGame.play(Direction.DOWN, WeaponType.POTION) == BarbarianState.CONTINUE)
+			assertTrue((newGame.play(Direction.DOWN, WeaponType.POTION) 
+													== BarbarianState.CONTINUE)
 					&& (newGame.getCurrentPlayer().getName() == "Pierre"));
 
 			dungeon.setInstance();
 		}
 
-	@Test
+	@Test // Stargate SG-1 Season 10 Episode 20.
 		public void playGate_test_02() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
@@ -784,7 +782,7 @@ public class GameTest {
 			dungeon.setInstance();
 		}
 
-	@Test(expected = GameOverException.class)
+	@Test(expected = GameOverException.class) // Same DungeonPosition.
 		public void playGate_test_04() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];
@@ -805,7 +803,7 @@ public class GameTest {
 			dungeon.setInstance();
 		}
 
-	@Test(expected = GameOverException.class)
+	@Test(expected = GameOverException.class) // Visited room.
 		public void playGate_test_05() throws GameOverException {
 
 			Room[][] configuration = new Room[5][5];

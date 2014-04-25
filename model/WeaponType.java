@@ -1,7 +1,7 @@
 package g39631.gameover.model;
 
 /**
- * Enumeration of Barbarian's weapons.
+ * Every weapons that a Barbarian is able to use.
  * 
  * @version 2.00
  * 

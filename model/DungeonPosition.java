@@ -1,7 +1,8 @@
 package g39631.gameover.model;
 
 /**
- * DungeonPosition class
+ * This class defines where a Room is in the Dungeon. To do this, a position is 
+ * defined by a x-axis and y-axis. It creates a new position if you move too.
  * 
  * @version 2.00
  * 

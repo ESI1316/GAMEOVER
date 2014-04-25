@@ -1,7 +1,7 @@
 package g39631.gameover.model;
 
 /**
- * Enumeration of Dungeon's type of Rooms.
+ * Everything you might find in Dungeon's Rooms.
  * 
  * @version 2.00
  * 

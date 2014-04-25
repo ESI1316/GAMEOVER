@@ -1,7 +1,9 @@
 package g39631.gameover.model;
 
 /**
- * Player class
+ * This class creates a new Barbarian for each player. He has his own player's
+ * number, color flag, initial position and name. A player can be beginner if
+ * he looks weak.
  * 
  * @version 2.00
  * 
