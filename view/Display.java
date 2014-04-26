@@ -30,7 +30,7 @@ public class Display {
 	private final String ROW_1_INIT = " \t \t| ";
 	private final String ROW_2_INIT = " \t \t| ";
 	private final String ROW_3_INIT = " \t \t| ";
-	private final String TOP 		= "  ________________ ";
+	private final String TOP 		= this.createTop();
 
 	private final String CLEAR 		= "\033[2J\033[;H";
 
@@ -44,7 +44,6 @@ public class Display {
 	private final String NEXTP = "You failed.\n\n\t\t Next player to play. \n";
 	private final String END = "\n\n\t \t \t END OF \"GAME OVER\" THE GAME. \n";
 
-	// private final String BANNER = GameFile.readBanner();
 
 	/**
 	 * This create a new Display wrote for "GAMEOVER". Arrays are number of
@@ -62,9 +61,19 @@ public class Display {
 		this.row1 		= ROW_1_INIT;
 		this.row2 		= ROW_2_INIT;
 		this.row3 		= ROW_3_INIT;
-		// this.hidden = true;
 	}
 
+	private String createTop() {
+		
+		String fullTop = "";
+		
+		for (int i = 0; i < Dungeon.N; i++) {
+			
+			fullTop += "  ________________ ";
+		}
+		
+		return fullTop;
+	}
 	/**
 	 * 
 	 * Display a string serving top &amp; bottom board.
@@ -72,12 +81,7 @@ public class Display {
 	 */
 	private void topBoard() {
 
-		System.out.println("\t \t" 
-				+ this.TOP 
-				+ this.TOP 
-				+ this.TOP 
-				+ this.TOP
-				+ this.TOP);
+		System.out.println("\t \t" + this.TOP);
 	}
 
 	/**
@@ -94,8 +98,6 @@ public class Display {
 	 * 
 	 */
 	private void banner() {
-
-		// System.out.println(this.BANNER);
 
 		System.out
 			.println("\t \t \t"

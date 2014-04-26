@@ -131,7 +131,7 @@ public class GameFile {
 		try {
 
 			input = Files.newBufferedReader(path,
-					java.nio.charset.Charset.forName("UTF-8"));
+					java.nio.charset.StandardCharsets.UTF_8);
 		} catch (IOException e) {
 
 			throw new GameOverException(e.getMessage());
