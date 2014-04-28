@@ -30,7 +30,7 @@ public class Display {
 	private final String ROW_1_INIT = " \t \t| ";
 	private final String ROW_2_INIT = " \t \t| ";
 	private final String ROW_3_INIT = " \t \t| ";
-	private final String TOP 		= this.createTop();
+	private final String TOP 		= "  ________________ ";
 
 	private final String CLEAR 		= "\033[2J\033[;H";
 
@@ -63,17 +63,6 @@ public class Display {
 		this.row3 		= ROW_3_INIT;
 	}
 
-	private String createTop() {
-		
-		String fullTop = "";
-		
-		for (int i = 0; i < Dungeon.N; i++) {
-			
-			fullTop += "  ________________ ";
-		}
-		
-		return fullTop;
-	}
 	/**
 	 * 
 	 * Display a string serving top &amp; bottom board.
@@ -81,7 +70,12 @@ public class Display {
 	 */
 	private void topBoard() {
 
-		System.out.println("\t \t" + this.TOP);
+		System.out.println("\t \t" 
+				+ this.TOP
+				+ this.TOP
+				+ this.TOP
+				+ this.TOP
+				+ this.TOP);
 	}
 
 	/**
