@@ -16,7 +16,7 @@ import g39631.gameover.model.*;
  *         HEB ESI LAJ1 2013-2014
  */
 public class Display {
-
+	
 	private BarbarianColor[] 	colors;
 	private WeaponType[] 		weapons;
 	private RoomType[] 			types;
@@ -33,16 +33,21 @@ public class Display {
 	private final String TOP 		= "  ________________ ";
 
 	private final String CLEAR 		= "\033[2J\033[;H";
-
 	private final String[] CODE_COLOR = {"\033[31m","\033[32m","\033[33m",
 		"\033[34m"};
 	private final String INIT_COLOR = "\033[0m";
+	private final String BACK_RED = "\033[41m";
 
 	private final String WEAPONS = "POTION(1) - ARROWS(2) - BLUDGEON(3) - GUN(4)";
 	private final String DIRECTIONS = "UP(1) - DOWN(2) - RIGHT(3) - LEFT(4)";
+	private final String ROWCHOOSE = "Which row do you choose ?";
+	private final String COLUMNCHOOSE = "Which column do you choose ?";
+	private final String UPDOWN = "From up to down : 0 - 1 - 2 - 3 - 4 " ;
+	private final String LEFTRIGHT = "From left to right : 0 - 1 - 2 - 3 - 4 "; 
+	private final String CRTAB = "\n\t\t";
 
-	private final String NEXTP = "You failed.\n\n\t\t Next player to play. \n";
-	private final String END = "\n\n\t \t \t END OF \"GAME OVER\" THE GAME. \n";
+	private final String NEXTP = "You failed.\n\n\t\tNext player to play. \n";
+	private final String END = "\n\n\t\t\t END OF \"GAME OVER\" THE GAME. \n";
 
 
 	/**
@@ -58,9 +63,9 @@ public class Display {
 		this.types 		= new RoomType[Dungeon.N * Dungeon.N];
 		this.positions 	= new DungeonPosition[Dungeon.N * Dungeon.N];
 		this.rooms 		= new Room[Dungeon.N * Dungeon.N];
-		this.row1 		= ROW_1_INIT;
-		this.row2 		= ROW_2_INIT;
-		this.row3 		= ROW_3_INIT;
+		this.row1 		= this.ROW_1_INIT;
+		this.row2 		= this.ROW_2_INIT;
+		this.row3 		= this.ROW_3_INIT;
 	}
 
 	/**
@@ -95,25 +100,25 @@ public class Display {
 
 		System.out
 			.println("\t \t \t"
-					+ " \033[41m######      ###    ##     ## ########     #######  ##     ## ######## ########"
+					+ " "+ this.BACK_RED +"######      ###    ##     ## ########     #######  ##     ## ######## ########"
 					+ this.INIT_COLOR
-					+ "\n \t \t \t"
-					+ "\033[41m##    ##    ## ##   ###   ### ##          ##     ## ##     ## ##       ##     ##"
+					+ this.CRTAB+"\t"
+					+ this.BACK_RED +"##    ##    ## ##   ###   ### ##          ##     ## ##     ## ##       ##     ##"
 					+ this.INIT_COLOR
-					+ "\n \t \t \t"
-					+ "\033[41m##         ##   ##  #### #### ##          ##     ## ##     ## ##       ##     ##"
+					+ this.CRTAB+"\t"
+					+ this.BACK_RED +"##         ##   ##  #### #### ##          ##     ## ##     ## ##       ##     ##"
 					+ this.INIT_COLOR
-					+ "\n \t \t \t"
-					+ "\033[41m##   #### ##     ## ## ### ## ######      ##     ## ##     ## ######   ########"
+					+ this.CRTAB+"\t"
+					+ this.BACK_RED +"##   #### ##     ## ## ### ## ######      ##     ## ##     ## ######   ########"
 					+ this.INIT_COLOR
-					+ "\n \t \t \t"
-					+ "\033[41m##    ##  ######### ##     ## ##          ##     ##  ##   ##  ##       ##   ##"
+					+ this.CRTAB+"\t"
+					+ this.BACK_RED +"##    ##  ######### ##     ## ##          ##     ##  ##   ##  ##       ##   ##"
 					+ this.INIT_COLOR
-					+ "\n \t \t \t"
-					+ "\033[41m##    ##  ##     ## ##     ## ##          ##     ##   ## ##   ##       ##    ##"
+					+ this.CRTAB+"\t"
+					+ this.BACK_RED +"##    ##  ##     ## ##     ## ##          ##     ##   ## ##   ##       ##    ##"
 					+ this.INIT_COLOR
-					+ "\n \t \t \t"
-					+ " \033[41m######   ##     ## ##     ## ########     #######     ###    ######## ##     ##"
+					+ this.CRTAB+"\t"
+					+ " "+ this.BACK_RED +"######   ##     ## ##     ## ########     #######     ###    ######## ##     ##"
 					+ this.INIT_COLOR);
 	}
 
@@ -125,10 +130,12 @@ public class Display {
 	 */
 	void instructions(Player player) {
 
-		System.out.print("\n \t \t Player " 
+		System.out.print(this.CRTAB 
+				+ "Player " 
 				+ player.getName()
-				+ " : your turn to play.\n" 
-				+ "\t \t Try to find your "
+				+ " : your turn to play." 
+				+ this.CRTAB
+				+ "Try to find your "
 				+ player.getColor() 
 				+ " PRINCESS !\n \n");
 	}
@@ -174,7 +181,6 @@ public class Display {
 			this.types[i] 		= this.rooms[i].getType();
 			this.weapons[i] 	= this.rooms[i].getWeapon();
 		}
-
 	}
 
 	/**
@@ -254,7 +260,7 @@ public class Display {
 
 		if (color != null) {
 
-			this.row2 += colors(color) 
+			this.row2 += this.colors(color) 
 				+ String.format("%-17s", color)
 				+ this.INIT_COLOR 
 				+ "| ";
@@ -307,9 +313,9 @@ public class Display {
 			System.out.println(this.row1);
 			System.out.println(this.row2);
 			System.out.println(this.row3);
-			this.row1 = ROW_1_INIT;
-			this.row2 = ROW_2_INIT;
-			this.row3 = ROW_3_INIT;
+			this.row1 = this.ROW_1_INIT;
+			this.row2 = this.ROW_2_INIT;
+			this.row3 = this.ROW_3_INIT;
 		}
 	}
 
@@ -320,10 +326,11 @@ public class Display {
 	 */
 	void weaponChoose() {
 
-		System.out.print("\n \t \t" 
+		System.out.print(this.CRTAB 
 				+ "Which weapon do you choose ?" 
-				+ "\n"
-				+ String.format("\t\t%-44s\n\t\t", this.WEAPONS));
+				+ this.CRTAB
+				+ String.format("%-44s", this.WEAPONS)
+				+ this.CRTAB);
 	}
 
 	/**
@@ -333,10 +340,11 @@ public class Display {
 	 */
 	void directionChoose() {
 
-		System.out.print("\n \t \t" 
+		System.out.print(this.CRTAB 
 				+ "Which way do you go ?" 
-				+ "\n"
-				+ String.format("\t\t%-44s\n\t\t", this.DIRECTIONS));
+				+ this.CRTAB
+				+ String.format("%-44s", this.DIRECTIONS)
+				+ this.CRTAB);
 	}
 
 	/**
@@ -346,7 +354,7 @@ public class Display {
 	 */
 	void gate() {
 
-		System.out.println("\n\t\t" 
+		System.out.println(this.CRTAB 
 				+ this.CODE_COLOR[0]
 				+ "You found a magical door. "
 				+ "You can teleport yourself to any unvisited Room !"
@@ -360,7 +368,8 @@ public class Display {
 	 */
 	void invincible() {
 
-		System.out.println("\n\t\t" + this.CODE_COLOR[0]
+		System.out.println(this.CRTAB 
+				+ this.CODE_COLOR[0]
 				+ "You can not kill that INVINCIBLE BLORK but in a last "
 				+ "effort, you quickly transfer it to another Room."
 				+ this.INIT_COLOR);
@@ -373,11 +382,11 @@ public class Display {
 	 */
 	void rowChoose() {
 
-		System.out.print("\n \t \t" 
-				+ "Which row do you choose ?" 
-				+ "\n\t\t"
-				+ "From up to down : 0 - 1 - 2 - 3 - 4 " 
-				+ "\n\t\t");
+		System.out.print(this.CRTAB 
+				+ this.ROWCHOOSE
+				+ this.CRTAB
+				+ this.UPDOWN
+				+ this.CRTAB);
 	}
 
 	/**
@@ -387,11 +396,11 @@ public class Display {
 	 */
 	void columnChoose() {
 
-		System.out.print("\n \t \t" 
-				+ "Which column do you choose ?" 
-				+ "\n\t\t"
-				+ "From left to right : 0 - 1 - 2 - 3 - 4 " 
-				+ "\n\t\t");
+		System.out.print(this.CRTAB
+				+ this.COLUMNCHOOSE
+				+ this.CRTAB
+				+ this.LEFTRIGHT 
+				+ this.CRTAB);
 	}
 
 	/**
@@ -401,7 +410,7 @@ public class Display {
 	 */
 	void joker() {
 
-		System.out.println("\n\t\t" 
+		System.out.println(this.CRTAB
 				+ this.CODE_COLOR[0]
 				+ "You can not kill that BLORK But in a last "
 				+ "effort, you quickly change weapon using your JOKER."
@@ -444,10 +453,10 @@ public class Display {
 			case GREEN:
 				colorCode = this.CODE_COLOR[1];
 				break;
-			case BLUE:
+			case YELLOW:
 				colorCode = this.CODE_COLOR[2];
 				break;
-			case YELLOW:
+			case BLUE:
 				colorCode = this.CODE_COLOR[3];
 				break;
 			default:
@@ -465,7 +474,7 @@ public class Display {
 	 */
 	void nextPlayer() {
 
-		System.out.println("\n \t \t " 
+		System.out.println(this.CRTAB 
 				+ this.CODE_COLOR[0] 
 				+ this.NEXTP
 				+ this.INIT_COLOR);
@@ -486,9 +495,12 @@ public class Display {
 		this.banner();
 		this.topBoard();
 		this.displayBoard();
-		System.out.print("\n \t \t There is a winner !\n \n"
-				+ "\t \t Winner is : " + winner.getName()
-				+ "\n \t \t He found his " + winner.getColor()
+		System.out.print(this.CRTAB 
+				+ "There is a winner !\n"
+				+ this.CRTAB
+				+ "Winner is : " + winner.getName()
+				+ this.CRTAB
+				+ "He found his " + winner.getColor()
 				+ " PRINCESS ! \n \n");
 	}
 
@@ -504,7 +516,7 @@ public class Display {
 
 		this.clearBash();
 		this.banner();
-		System.out.println("\n \t \t \t " + error + this.END);
+		this.errorDisplay(error + this.END);
 	}
 
 	/**
@@ -530,7 +542,7 @@ public class Display {
 	 */
 	void errorDisplay(String error) {
 
-		System.out.println("\n \t \t \t " + error);
+		System.out.println(this.CRTAB + "\t " + error);
 		this.errorTimer();
 	}
 }

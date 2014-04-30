@@ -166,13 +166,9 @@ public class GameFile {
 			line = lineRead(line, input);
 			while ((line != null) && (length < 4)) {
 
-				if (names == null) {
-
-					names = line;
-				} else {
-
-					names += " " + line;
-				}
+				names = (names==null)
+						?line
+						:names + " " + line;
 
 				length++;
 				line = lineRead(line, input);
