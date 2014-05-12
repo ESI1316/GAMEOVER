@@ -23,6 +23,19 @@ import g39631.gameover.model.GameOverException;
  */
 public class GameFile {
 
+	private Path path;
+	private BufferedReader input;
+	private String[] names;
+	
+	/**
+	 * 
+	 */
+	GameFile() {
+		
+		this.path = null;
+		this.input = null;
+		this.names = null;
+	}
 	/**
 	 * 
 	 * Read player's file and create an array made of every string inside. Turns
@@ -44,14 +57,14 @@ public class GameFile {
 	 *             If there is less than 2 players.
 	 * 
 	 */
-	static String[] fileToArray(String... args) throws GameOverException {
+	public String[] fileToArray(String... args) throws GameOverException {
 
-		Path path 				= pathCreation(args);
-		BufferedReader input 	= fileOpen(path);
-		String[] names 			= fileRead(input);
-		fileClose(input);
+		this.pathCreation(args);
+		this.fileOpen();
+		this.fileRead();
+		this.fileClose();
 
-		return names;
+		return this.names;
 	}
 
 	/**
@@ -68,44 +81,39 @@ public class GameFile {
 	 *             readable. If file is a directory.
 	 * 
 	 */
-	private static Path pathCreation(String... args) throws GameOverException {
+	private void pathCreation(String... args) throws GameOverException {
 
 		if (args.length < 1) {
 
 			throw new GameOverException("There is not any file path.");
 		}
 
-		Path path = Paths.get(args[0]);
-		pathExceptions(path);
-
-		return path;
+		this.path = Paths.get(args[0]);
+		this.pathExceptions();
 	}
 
 	/**
 	 * 
 	 * Throws Path exceptions.
 	 * 
-	 * @param path
-	 *            a file path.
-	 * 
 	 * @throws GameOverException
 	 *             If there is no path. If file does not exist. If file is not
 	 *             readable. If file is a directory.
 	 * 
 	 */
-	private static void pathExceptions(Path path) throws GameOverException {
+	private void pathExceptions() throws GameOverException {
 
-		if (!(Files.exists(path))) {
+		if (!(Files.exists(this.path))) {
 
 			throw new GameOverException("Players file not found.");
 		}
 
-		if (!(Files.isReadable(path))) {
+		if (!(Files.isReadable(this.path))) {
 
 			throw new GameOverException("Players file unreadable.");
 		}
 
-		if (Files.isDirectory(path)) {
+		if (Files.isDirectory(this.path)) {
 
 			throw new GameOverException("Players file is a directory.");
 		}
@@ -115,38 +123,28 @@ public class GameFile {
 	 * 
 	 * Open player's file read-only.
 	 * 
-	 * @param path
-	 *            to find file.
-	 * 
 	 * @return A BufferedReader ready to read file.
 	 * 
 	 * @throws GameOverException
 	 *             If there is any IOException.
 	 * 
 	 */
-	private static BufferedReader fileOpen(Path path) throws GameOverException {
-
-		BufferedReader input = null;
+	private void fileOpen() throws GameOverException {
 
 		try {
 
-			input = Files.newBufferedReader(path,
+			this.input = Files.newBufferedReader(this.path,
 					java.nio.charset.StandardCharsets.UTF_8);
 		} catch (IOException e) {
 
 			throw new GameOverException(e.getMessage());
 		}
-
-		return input;
 	}
 
 	/**
 	 * 
 	 * Read all the file and write it in a String array. It is made of names and
 	 * beginner state if a player is.
-	 * 
-	 * @param input
-	 *            The opened &amp; readable player's file.
 	 * 
 	 * @return Player's name &amp; state.
 	 * 
@@ -156,14 +154,13 @@ public class GameFile {
 	 *             If there is any IOException while closing file.
 	 * 
 	 */
-	private static String[] fileRead(BufferedReader input)
-		throws GameOverException {
+	private void fileRead() throws GameOverException {
 
 			String names 	= null;
 			String line 	= null;
 			int length 		= 0;
 
-			line = lineRead(line, input);
+			line = this.lineRead(line);
 			while ((line != null) && (length < 4)) {
 
 				names = (names==null)
@@ -171,11 +168,11 @@ public class GameFile {
 						:names + " " + line;
 
 				length++;
-				line = lineRead(line, input);
+				line = this.lineRead(line);
 			}
 
-			lengthError(length, line, input);
-			return names.split(" ");
+			this.lengthError(length, line);
+			this.names =  names.split(" ");
 		}
 
 	/**
@@ -186,10 +183,7 @@ public class GameFile {
 	 *            Number of read line.
 	 * 
 	 * @param line
-	 *            The last read line.
-	 * 
-	 * @param input
-	 *            The opened &amp; readable player's file.
+	 *            The last read line. 
 	 * 
 	 * @throws GameOverException
 	 *             If there is more than 4 players. 
@@ -197,18 +191,17 @@ public class GameFile {
 	 *             If there is any IOException while closing file.
 	 * 
 	 */
-	private static void lengthError(int length, String line,
-			BufferedReader input) throws GameOverException {
+	private void lengthError(int length, String line) throws GameOverException {
 
 		if (length < 2) {
 
-			fileClose(input);
+			this.fileClose();
 			throw new GameOverException("At least two players required.");
 		}
 
 		if ((length > 3) && (line != null)) {
 
-			fileClose(input);
+			this.fileClose();
 			throw new GameOverException("Up to 4 players.");
 		}
 	}
@@ -220,24 +213,20 @@ public class GameFile {
 	 * @param line
 	 *            The last read line.
 	 * 
-	 * @param input
-	 *            The opened &amp; readable player's file.
-	 * 
 	 * @return Every characters of read line in a string.
 	 * 
 	 * @throws GameOverException
 	 *             If there is any IOException.
 	 * 
 	 */
-	private static String lineRead(String line, BufferedReader input)
-		throws GameOverException {
+	private String lineRead(String line) throws GameOverException {
 
 			try {
 
-				line = input.readLine();
+				line = this.input.readLine();
 			} catch (IOException Iex) {
 
-				fileClose(input);
+				this.fileClose();
 				throw new GameOverException(Iex.getMessage());
 			}
 
@@ -248,19 +237,15 @@ public class GameFile {
 	 * 
 	 * Closes a opened player's file.
 	 * 
-	 * @param input
-	 *            The opened &amp; readable player's file.
-	 * 
 	 * @throws GameOverException
 	 *             If there is any IOException.
 	 * 
 	 */
-	private static void fileClose(BufferedReader input)
-		throws GameOverException {
+	private void fileClose() throws GameOverException {
 
 			try {
 
-				input.close();
+				this.input.close();
 			} catch (IOException e) {
 
 				throw new GameOverException(e.getMessage());

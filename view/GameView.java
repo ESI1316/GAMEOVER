@@ -78,7 +78,7 @@ public class GameView {
 	 */
 	private void creation(String[] args) throws GameOverException {
 
-		args 			= GameFile.fileToArray(args);
+		args 			= new GameFile().fileToArray(args);
 		this.newGame 	= new Game(args);
 	}
 
